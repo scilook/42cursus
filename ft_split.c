@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:42:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/04 12:43:40 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:24:17 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,17 @@ char	*ft_strcdup(const char *s, const char c)
 	return (ptr);
 }
 
+int	free_ptr(char **ptr, int i)
+{
+	while (i >= 0)
+	{
+		free(ptr[i]);
+		i--;
+	}
+	free(ptr);
+	return (1);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
@@ -74,6 +85,8 @@ char	**ft_split(char const *s, char c)
 			ptr[j] = ft_strcdup(s + i, '\0');
 		else
 			ptr[j] = ft_strcdup(s + i, c);
+		if (ptr[j] == NULL && free_ptr(ptr, j - 1))
+			return (NULL);
 		while (s[i] != c)
 			i++;
 		j++;

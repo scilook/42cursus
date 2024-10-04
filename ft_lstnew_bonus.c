@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:37:08 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/04 18:03:03 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:31:01 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*llst;
+	t_list	*head;
 
-	llst = (t_list *)malloc(sizeof(t_list));
-	if (!llst)
+	head = (t_list *)malloc(sizeof(t_list));
+	if (head == NULL)
 		return (NULL);
-	llst->content = content;
-	llst->next = NULL;
-	return (llst);
+	head->content = content;
+	head->next = NULL;
+	return (head);
 }

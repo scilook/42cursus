@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 10:54:46 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/04 22:31:24 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/04 16:43:27 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/04 22:30:49 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_striteri(char *s, void (*f)(unsigned int, char*))
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	size_t	i;
+	t_list	*tail;
 
-	i = 0;
-	while (s[i] != '\0')
+	if (lst  == NULL|| new == NULL)
+		return ;
+	if (*lst == NULL)
 	{
-		f(i, s + i);
-		i++;
+		*lst = new;
+		return ;
 	}
+	tail = *lst;
+	while (tail->next)
+		tail = tail->next;
+	tail->next = new;
 }
