@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:41:52 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/03 19:55:31 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/04 15:57:38 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,18 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	i;
 	char	*str;
+	size_t	i;
+	size_t	j;
 
-	str = (char *)s1;
+	if (!s1 || !set)
+		return (NULL);
 	i = 0;
-	while (ft_strchr(set, str[i]) != NULL)
-	{
-		ft_strlcpy(str, str + 1, ft_strlen(str));
+	while (ft_strchr(set, s1[i]) && s1[i])
 		i++;
-	}
-	i = 0;
-	while (ft_strrchr(set, str[i]) != NULL)
-	{
-		ft_strlcpy(str, str, ft_strlen(str));
-		i++;
-	}
+	j = 0;
+	while ((ft_strlen(s1) - i) && ft_strchr(set, s1[ft_strlen(s1) - j - 1]))
+		j++;
+	str = ft_substr(s1, i, ft_strlen(s1) - i - j);
 	return (str);
 }

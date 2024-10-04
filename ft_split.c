@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:42:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/03 20:39:37 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/04 12:43:40 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-/* size_t	ft_chrcnt(const char *s, const char c)
-{
-	size_t	i;
-	size_t	cnt;
-
-	i = 0;
-	cnt = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			cnt++;
-		i++;
-	}
-	return (cnt);
-} */
 
 size_t	word_count(const char *s, const char c)
 {
@@ -39,26 +23,28 @@ size_t	word_count(const char *s, const char c)
 	i = 0;
 	while (s[i] != '\0')
 	{
-	if (i_am_c == 1 && s[i] != c)
-	{
-		i_am_c = 0;
-		cnt++;
-	}
-	if (i_am_c == 0 && s[i] == c)
-	{
-		i_am_c = c;
-	}
-	i++;
+		if (i_am_c == 1 && s[i] != c)
+		{
+			i_am_c = 0;
+			cnt++;
+		}
+		if (i_am_c == 0 && s[i] == c)
+		{
+			i_am_c = 1;
+		}
+		i++;
 	}
 	return (cnt);
 }
 
 char	*ft_strcdup(const char *s, const char c)
 {
-	size_t	i;
 	char	*ptr;
+	size_t	i;
 
-	ptr = (char *)malloc(sizeof(char) * ft_strlen(s));
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!ptr)
+		return (NULL);
 	i = 0;
 	while (*(s + i) != c)
 	{
@@ -73,31 +59,25 @@ char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
 	size_t	i;
+	size_t	j;
 
 	ptr = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
-	while (i < word_count(s, c))
+	j = 0;
+	while (j < word_count(s, c))
 	{
 		while (s[i] == c)
 			i++;
-		ptr[i] = (char *)malloc(sizeof(char) * (ft_strchr(s, c) - s + 1));
-		if (ptr[i] == NULL)
-		{
-			while (i != 0)
-				free(ptr[--i]);
-			return (NULL);
-		}
-		ptr[i] = ft_strcdup(s, c);
+		if (ft_strchr(s + i, c) == NULL)
+			ptr[j] = ft_strcdup(s + i, '\0');
+		else
+			ptr[j] = ft_strcdup(s + i, c);
 		while (s[i] != c)
 			i++;
+		j++;
 	}
-	ptr[i] = 0;
+	ptr[j] = 0;
 	return (ptr);
 }
-
-		// j = 0;
-		// while (*(str + i) != c)
-		// 	ptr[i][j++] = *((char *)str + i);
-		// ptr[i][j] = '\0';

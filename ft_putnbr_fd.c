@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 10:40:43 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/04 12:21:27 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/04 14:58:33 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/04 15:05:12 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char	*ptr;
-	size_t	i;
-
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	while (*(s + i) != '\0')
-	{
-		ptr[i] = *((char *)s + i);
-		i++;
-	}
-	ptr[i] = '\0';
-	return (ptr);
+	ft_putstr_fd(ft_itoa(n), fd);
 }
