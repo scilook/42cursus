@@ -6,13 +6,13 @@
 /*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:42:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/03 11:18:17 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/03 20:39:37 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_chrcnt(const char *s, const char c)
+/* size_t	ft_chrcnt(const char *s, const char c)
 {
 	size_t	i;
 	size_t	cnt;
@@ -23,6 +23,32 @@ size_t	ft_chrcnt(const char *s, const char c)
 	{
 		if (s[i] == c)
 			cnt++;
+		i++;
+	}
+	return (cnt);
+} */
+
+size_t	word_count(const char *s, const char c)
+{
+	size_t	i;
+	size_t	cnt;
+	size_t	i_am_c;
+
+	cnt = 0;
+	i_am_c = 1;
+	i = 0;
+	while (s[i] != '\0')
+	{
+	if (i_am_c == 1 && s[i] != c)
+	{
+		i_am_c = 0;
+		cnt++;
+	}
+	if (i_am_c == 0 && s[i] == c)
+	{
+		i_am_c = c;
+	}
+	i++;
 	}
 	return (cnt);
 }
@@ -46,26 +72,26 @@ char	*ft_strcdup(const char *s, const char c)
 char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
-	char	*str;
 	size_t	i;
 
-	str = ft_strdup(s);
-	ptr = (char **)malloc(sizeof(char *) * (ft_chrcnt(s, c) + 1));
+	ptr = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
-	while (i < ft_chrcnt(s, c))
+	while (i < word_count(s, c))
 	{
-		ptr[i] = (char *)malloc(sizeof(char) * (ft_strchr(str, c) - str + 1));
+		while (s[i] == c)
+			i++;
+		ptr[i] = (char *)malloc(sizeof(char) * (ft_strchr(s, c) - s + 1));
 		if (ptr[i] == NULL)
 		{
 			while (i != 0)
 				free(ptr[--i]);
 			return (NULL);
 		}
-		ptr[i] = ft_strcdup(str, c);
-		str = ft_strchr(str, c);
-		i++;
+		ptr[i] = ft_strcdup(s, c);
+		while (s[i] != c)
+			i++;
 	}
 	ptr[i] = 0;
 	return (ptr);
