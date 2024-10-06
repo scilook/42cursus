@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:12:28 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/03 14:16:57 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/06 11:54:16 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@ int	ft_tolower(int c)
 {
 	if ((unsigned int)(c - 'A') < 26)
 	{
-		return (c | 0x20);
+		return (c + 32);
 	}
 	else
 		return (c);

@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:42:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/04 22:24:17 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/06 12:09:01 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_strcdup(const char *s, const char c)
 	size_t	i;
 
 	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!ptr)
+	if (ptr == NULL)
 		return (NULL);
 	i = 0;
 	while (*(s + i) != c)

@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:49:36 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/05 09:48:32 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/06 10:32:39 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 int	ft_lstsize(t_list *lst)
 {
 	size_t	cnt;
-	t_list	*last;
 
 	cnt = 0;
-	last = lst;
-	while (last != NULL)
+	while (lst != NULL)
 	{
 		cnt++;
-		last = last->next;
+		lst = lst->next;
 	}
 	return (cnt);
 }

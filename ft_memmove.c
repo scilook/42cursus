@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 20:01:04 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/03 13:58:16 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/06 12:08:30 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t	i;
-	char	*ptr;
+	size_t			i;
+	unsigned char	*dst;
 
 	i = 0;
-	ptr = (char *)dest;
+	dst = (unsigned char *)dest;
 	if (dest - src < 0)
 	{
 		while (i < n)
 		{
-			ptr[i] = *(char *)(src + i);
+			dst[i] = *(unsigned char *)(src + i);
 			i++;
 		}
 	}
@@ -32,7 +32,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 		while (i < n)
 		{
 			i++;
-			ptr[n - i] = *(char *)(src + n - i);
+			dst[n - i] = *(unsigned char *)(src + n - i);
 		}
 	}
 	return (dest);

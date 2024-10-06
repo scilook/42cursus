@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 15:58:27 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/03 14:16:27 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/06 11:53:16 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@ int	ft_toupper(int c)
 {
 	if ((unsigned int)(c - 'a') < 26)
 	{
-		return (c & 0x5F);
+		return (c - 32);
 	}
 	else
 		return (c);
