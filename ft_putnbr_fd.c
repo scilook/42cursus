@@ -6,13 +6,13 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 14:58:33 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/06 09:55:38 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/06 17:37:54 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_recursive_power(int nb, int power)
+static int	ft_recursive_power(int nb, int power)
 {
 	if (power < 0)
 		return (0);
@@ -21,7 +21,7 @@ int	ft_recursive_power(int nb, int power)
 	return (nb * ft_recursive_power(nb, power - 1));
 }
 
-unsigned int	decimal_count(int n)
+static unsigned int	decimal_count(int n)
 {
 	unsigned int	power;
 

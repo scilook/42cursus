@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:41:33 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/04 18:20:46 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/07 11:03:09 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 
-size_t	ft_strlen(const char *s);
+size_t	ft_strlen(const char *s) __attribute__((nonnull(1)));
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

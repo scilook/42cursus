@@ -6,13 +6,13 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:42:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/06 12:09:01 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/06 17:39:45 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	word_count(const char *s, const char c)
+static size_t	word_count(const char *s, const char c)
 {
 	size_t	i;
 	size_t	cnt;
@@ -37,7 +37,7 @@ size_t	word_count(const char *s, const char c)
 	return (cnt);
 }
 
-char	*ft_strcdup(const char *s, const char c)
+static char	*ft_strcdup(const char *s, const char c)
 {
 	char	*ptr;
 	size_t	i;
@@ -55,7 +55,7 @@ char	*ft_strcdup(const char *s, const char c)
 	return (ptr);
 }
 
-int	free_ptr(char **ptr, int i)
+static int	free_ptr(char **ptr, int i)
 {
 	while (i >= 0)
 	{

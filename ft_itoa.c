@@ -6,13 +6,13 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:43:06 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/04 15:01:01 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/06 17:38:47 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned int	ft_decimal_count(int n)
+static unsigned int	ft_decimal_count(int n)
 {
 	unsigned int	cnt;
 
