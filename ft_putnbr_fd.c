@@ -6,41 +6,32 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 14:58:33 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/06 17:37:54 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/12 15:54:38 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_recursive_power(int nb, int power)
-{
-	if (power < 0)
-		return (0);
-	if (power == 0)
-		return (1);
-	return (nb * ft_recursive_power(nb, power - 1));
-}
-
 static unsigned int	decimal_count(int n)
 {
-	unsigned int	power;
+	unsigned int	cnt;
 
-	power = 0;
+	cnt = 0;
 	while (n != 0)
 	{
-		power++;
+		cnt++;
 		n = n / 10;
 	}
-	return (power);
+	return (cnt);
 }
 
 void	ft_putnbr_fd(int n, int fd)
 {
 	long long int	cp;
-	size_t			power;
-	char			digit;
+	size_t			digit;
+	char			nbr[11];
 
-	power = decimal_count(n);
+	digit = decimal_count(n);
 	if (n == 0)
 		ft_putchar_fd('0', fd);
 	cp = n;
@@ -49,10 +40,11 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd('-', fd);
 		cp = -cp;
 	}
-	while (cp != 0 && power--)
+	nbr[digit] = '\0';
+	while (cp != 0)
 	{
-		digit = cp / ft_recursive_power(10, power);
-		ft_putchar_fd(digit + '0', fd);
-		cp = cp - digit * ft_recursive_power(10, power);
+		nbr[--digit] = cp % 10 + '0';
+		cp /= 10;
 	}
+	ft_putstr_fd(nbr, fd);
 }

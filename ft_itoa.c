@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:43:06 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/06 17:38:47 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/12 12:40:38 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ char	*ft_itoa(int n)
 	cp = n;
 	flag = 0;
 	cnt = ft_decimal_count(n);
-	num = (char *)malloc(sizeof(char) * (cnt + (cp < 0)));
+	num = (char *)malloc(sizeof(char) * (cnt + (cp < 0) + 1));
 	if (num == NULL)
 		return (NULL);
-	if (cp < 0)
+	if (cp < 0 && ++flag)
 	{
 		num[0] = '-';
 		cp = -cp;
-		flag = 1;
 	}
+	num[cnt + flag] = '\0';
 	while (cp != 0)
 	{
 		num[--cnt + flag] = cp % 10 + '0';

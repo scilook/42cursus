@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:40:03 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/10 13:48:40 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/12 17:21:05 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*ptr;
 
+	if (nmemb == 0 || size == 0)
+		return (NULL);
 	if ((nmemb * size) / nmemb != size)
 		return (NULL);
 	ptr = malloc(nmemb * size);

@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:42:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/06 17:39:45 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/11 16:44:00 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ char	**ft_split(char const *s, char c)
 			i++;
 		j++;
 	}
-	ptr[j] = 0;
+	ptr[j] = NULL;
 	return (ptr);
 }

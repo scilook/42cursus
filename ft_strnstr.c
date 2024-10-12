@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 21:18:32 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/03 18:04:47 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/11 19:02:00 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	if (little[0] == '\0')
 		return ((char *)big);
 	i = 0;
-	while (big[i] != '\0' && i + littlelen < len)
+	while (big[i] != '\0' && i + littlelen <= len)
 	{
 		if (little[0] == big[i])
 		{
@@ -30,5 +30,5 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 		}
 		i++;
 	}
-	return (0);
+	return (NULL);
 }
