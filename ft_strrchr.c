@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 16:45:52 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/02 10:35:10 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/13 09:38:56 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
@@ -36,5 +38,5 @@ char	*ft_strrchr(const char *s, int c)
 	{
 		return (tmp);
 	}
-	return (0);
+	return (NULL);
 }

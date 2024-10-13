@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:41:52 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/04 22:34:33 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/13 09:46:17 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	i;
 	size_t	j;
 
-	if (s1 == NULL || set == NULL)
-		return (NULL);
 	i = 0;
 	while (ft_strchr(set, s1[i]) != NULL && s1[i] != '\0')
 		i++;
