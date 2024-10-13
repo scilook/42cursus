@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 16:45:10 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/05 11:27:47 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/13 12:50:40 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*tmp;
 
+	if (lst == NULL || del == NULL)
+		return ;
 	while (*lst != NULL)
 	{
 		tmp = (*lst)->next;

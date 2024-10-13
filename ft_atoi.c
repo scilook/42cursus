@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 09:50:38 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/06 11:44:04 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/13 13:00:08 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ int	ft_atoi(const char *s)
 		i++;
 	}
 	else if (s[i] == '+')
-	{
 		i++;
-	}
 	while (s[i] >= '0' && s[i] <= '9')
 	{
 		result = result * 10 + ((char)s[i] - '0');
