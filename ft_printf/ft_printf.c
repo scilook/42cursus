@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/30 10:57:08 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/30 12:07:35 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	ft_printf(const char *s, ...)
 			i++;
 			if (find_in_set("cspdiuxX%%", s[i]) == -1)
 				return (-1);
-			vaprintf(&i, ap, s, &cnt);
+			vaprintf(i, ap, s, &cnt);
+			i++;
 			continue ;
 		}
 		ft_putchar_fd(s[i], 1);
