@@ -6,14 +6,13 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:02:49 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/30 19:30:47 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/10/30 20:37:36 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# define ABS(value) ((value)*((value > 0) - (value < 0)))
 # include <stdarg.h>
 # include <malloc.h>
 # include <unistd.h>
