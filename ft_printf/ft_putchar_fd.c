@@ -6,13 +6,14 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:28:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/30 10:35:42 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/01 11:01:58 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c, int fd, size_t *cnt)
 {
 	write(fd, &c, 1);
+	(*cnt)++;
 }
