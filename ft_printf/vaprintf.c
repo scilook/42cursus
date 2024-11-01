@@ -6,11 +6,31 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:50:14 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/01 10:53:47 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/01 11:44:22 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static size_t	ft_strlen(const char *s)
+{
+	size_t	cnt;
+
+	cnt = 0;
+	while (*(s + cnt))
+	{
+		cnt++;
+	}
+	return (cnt);
+}
+
+static void	ft_putstr_fd(char *s, int fd, size_t *cnt)
+{
+	if (s == NULL)
+		s = "(null)";
+	write(fd, s, ft_strlen(s));
+	*cnt += ft_strlen(s);
+}
 
 static void	addr_encoder(void *addr, char *base, size_t *cnt)
 {
@@ -58,22 +78,22 @@ static void	base_encoder(long int n, char *base, size_t *cnt)
 		ft_putchar_fd(chnbr[--i], 1, cnt);
 }
 
-void	vaprintf(size_t i, va_list ap, const char *s, size_t *cnt)
+void	vaprintf(va_list ap, const char c, size_t *cnt)
 {
-	if (s[i] == 's')
+	if (c == 's')
 		ft_putstr_fd(va_arg(ap, char *), 1, cnt);
-	if (s[i] == 'c')
+	if (c == 'c')
 		ft_putchar_fd(va_arg(ap, int), 1, cnt);
-	if (s[i] == 'p')
+	if (c == 'p')
 		addr_encoder(va_arg(ap, void *), "0123456789abcdef", cnt);
-	if (s[i] == 'd' || s[i] == 'i')
+	if (c == 'd' || c == 'i')
 		base_encoder(va_arg(ap, int), "0123456789", cnt);
-	if (s[i] == 'u')
+	if (c == 'u')
 		base_encoder(va_arg(ap, unsigned int), "0123456789", cnt);
-	if (s[i] == 'x')
+	if (c == 'x')
 		base_encoder(va_arg(ap, unsigned int), "0123456789abcdef", cnt);
-	if (s[i] == 'X')
+	if (c == 'X')
 		base_encoder(va_arg(ap, unsigned int), "0123456789ABCDEF", cnt);
-	if (s[i] == '%')
+	if (c == '%')
 		ft_putchar_fd('%', 1, cnt);
 }
