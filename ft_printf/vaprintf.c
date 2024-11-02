@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:50:14 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/01 11:44:22 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/02 13:08:25 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,29 @@ static void	base_encoder(long int n, char *base, size_t *cnt)
 		ft_putchar_fd(chnbr[--i], 1, cnt);
 }
 
-void	vaprintf(va_list ap, const char c, size_t *cnt)
+size_t	vaprintf(va_list ap, const char c, size_t *cnt)
 {
 	if (c == 's')
 		ft_putstr_fd(va_arg(ap, char *), 1, cnt);
-	if (c == 'c')
+	else if (c == 'c')
 		ft_putchar_fd(va_arg(ap, int), 1, cnt);
-	if (c == 'p')
+	else if (c == 'p')
 		addr_encoder(va_arg(ap, void *), "0123456789abcdef", cnt);
-	if (c == 'd' || c == 'i')
+	else if (c == 'd' || c == 'i')
 		base_encoder(va_arg(ap, int), "0123456789", cnt);
-	if (c == 'u')
+	else if (c == 'u')
 		base_encoder(va_arg(ap, unsigned int), "0123456789", cnt);
-	if (c == 'x')
+	else if (c == 'x')
 		base_encoder(va_arg(ap, unsigned int), "0123456789abcdef", cnt);
-	if (c == 'X')
+	else if (c == 'X')
 		base_encoder(va_arg(ap, unsigned int), "0123456789ABCDEF", cnt);
-	if (c == '%')
+	else if (c == '%')
 		ft_putchar_fd('%', 1, cnt);
+	else
+	{
+		ft_putchar_fd('%', 1, cnt);
+		ft_putchar_fd(c, 1, cnt);
+		return (1);
+	}
+	return (0);
 }
