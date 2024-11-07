@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vaprintf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:50:14 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/07 16:02:07 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/07 16:47:04 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,10 @@ void	vaprintf(va_list ap, const char ic, const char c, size_t *cnt)
 		base_encoder(va_arg(ap, unsigned int), "0123456789abcdef", cnt);
 	else if (c == 'X')
 		base_encoder(va_arg(ap, unsigned int), "0123456789ABCDEF", cnt);
-	else if (c == '%')
-		ft_putchar_fd('%', 1, cnt);
 	else
 	{
 		ft_putchar_fd('%', 1, cnt);
-		ft_putchar_fd(c, 1, cnt);
+		if (c != '%')
+			ft_putchar_fd(c, 1, cnt);
 	}
 }
