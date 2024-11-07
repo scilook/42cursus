@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:50:14 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/02 13:08:25 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/07 15:11:57 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	base_encoder(long int n, char *base, size_t *cnt)
 		ft_putchar_fd(chnbr[--i], 1, cnt);
 }
 
-size_t	vaprintf(va_list ap, const char c, size_t *cnt)
+void	vaprintf(va_list ap, const char ic, const char c, size_t *cnt)
 {
 	if (c == 's')
 		ft_putstr_fd(va_arg(ap, char *), 1, cnt);
@@ -99,8 +99,8 @@ size_t	vaprintf(va_list ap, const char c, size_t *cnt)
 	else
 	{
 		ft_putchar_fd('%', 1, cnt);
+		if (ic == ' ')
+			ft_putchar_fd(' ', 1, cnt);
 		ft_putchar_fd(c, 1, cnt);
-		return (1);
 	}
-	return (0);
 }

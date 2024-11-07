@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/02 13:36:48 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/07 15:11:32 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ int	ft_printf(const char *s, ...)
 {
 	size_t	i;
 	size_t	cnt;
-	size_t	iserror;
 	va_list	ap;
 
 	if (s == NULL)
-		return(-1);
+		return (-1);
 	cnt = 0;
 	va_start(ap, s);
 	i = 0;
@@ -28,14 +27,16 @@ int	ft_printf(const char *s, ...)
 	{
 		if (s[i] == '%' && ++i)
 		{
-			iserror = vaprintf(ap, s[i++], &cnt);
+			while (s[i] == ' ')
+				i++;
+			if (s[i] == '\0')
+				return (-1);
+			vaprintf(ap, s[i - 1], s[i], &cnt);
+			i++;
 			continue ;
 		}
 		ft_putchar_fd(s[i++], 1, &cnt);
 	}
 	va_end(ap);
-	if (iserror == 1)
-		return (-1);
-	else
-		return (cnt);
+	return (cnt);
 }

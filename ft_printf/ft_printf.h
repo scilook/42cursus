@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:02:49 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/02 13:36:21 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/07 15:11:14 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 void	ft_putchar_fd(char c, int fd, size_t *cnt);
-size_t	vaprintf(va_list ap, const char c, size_t *cnt);
+void	vaprintf(va_list ap, const char ic, const char c, size_t *cnt);
 int		ft_printf(const char *s, ...)__attribute__((format(printf, 1, 2)));
 
 #endif /* FT_PRINTF_H */
