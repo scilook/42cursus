@@ -1,0 +1,68 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/13 16:35:04 by hyeson            #+#    #+#             */
+/*   Updated: 2024/11/15 18:26:34 by hyeson           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "get_next_line.h"
+
+static size_t	ft_strlen(const char *s)
+{
+	size_t	cnt;
+
+	cnt = 0;
+	while (*(s + cnt) == '\0')
+	{
+		cnt++;
+	}
+	return (cnt);
+}
+
+static char	*ft_strcpy(char *dest, char const*src)
+{
+	int	i;
+
+	i = 0;
+	while (*(src + i) != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+static char	*ft_strcat(char *dest, char const *src)
+{
+	int	i;
+	int	dstlen;
+
+	i = -1;
+	dstlen = ft_strlen(dest);
+	while (src[++i] != '\0')
+		dest[dstlen + i] = src[i];
+	dest[dstlen + i] = '\0';
+	return (dest);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*ptr;
+
+	if (s1 == NULL)
+		s1 = "";
+	if (s2 == NULL)
+		s2 = "";
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (ptr == NULL)
+		return (NULL);
+	ft_strcpy(ptr, s1);
+	ft_strcat(ptr, s2);
+	return (ptr);
+}
