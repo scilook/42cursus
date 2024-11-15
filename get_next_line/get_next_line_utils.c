@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:04 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/15 18:26:34 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/15 20:13:37 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ static size_t	ft_strlen(const char *s)
 	size_t	cnt;
 
 	cnt = 0;
-	while (*(s + cnt) == '\0')
+	while (*(s + cnt) != '\0')
 	{
 		cnt++;
 	}
 	return (cnt);
 }
 
-static char	*ft_strcpy(char *dest, char const*src)
+static char	*ft_strcpy(char *dest, char const *src)
 {
 	int	i;
 
 	i = 0;
-	while (*(src + i) != '\0')
+	while (src[i] != '\0')
 	{
 		dest[i] = src[i];
 		i++;
@@ -43,10 +43,13 @@ static char	*ft_strcat(char *dest, char const *src)
 	int	i;
 	int	dstlen;
 
-	i = -1;
+	i = 0;
 	dstlen = ft_strlen(dest);
-	while (src[++i] != '\0')
+	while (src[i] != '\0')
+	{
 		dest[dstlen + i] = src[i];
+		i++;
+	}
 	dest[dstlen + i] = '\0';
 	return (dest);
 }
@@ -62,7 +65,5 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (ptr == NULL)
 		return (NULL);
-	ft_strcpy(ptr, s1);
-	ft_strcat(ptr, s2);
-	return (ptr);
+	return (ft_strcat(ft_strcpy(ptr, s1), s2));
 }

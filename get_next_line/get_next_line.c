@@ -6,13 +6,15 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:24:02 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/15 18:15:06 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/15 20:20:54 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
 
+
+/* remain_buf에  \n이 있을 가능성 존재 */
 char	*get_next_line(int fd)
 {
 	static char	*remain_buf;
