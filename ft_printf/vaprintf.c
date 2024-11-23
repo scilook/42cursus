@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vaprintf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:50:14 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/07 16:47:04 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/23 15:45:53 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,7 @@ void	vaprintf(va_list ap, const char ic, const char c, size_t *cnt)
 	else if (c == 'p')
 		addr_encoder(va_arg(ap, void *), "0123456789abcdef", cnt);
 	else if (c == 'd' || c == 'i')
-	{
-		if (ic == ' ')
-			ft_putchar_fd(' ', 1, cnt);
 		base_encoder(va_arg(ap, int), "0123456789", cnt);
-	}
 	else if (c == 'u')
 		base_encoder(va_arg(ap, unsigned int), "0123456789", cnt);
 	else if (c == 'x')

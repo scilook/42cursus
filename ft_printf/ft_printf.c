@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/07 15:11:32 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/23 15:48:14 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ int	ft_printf(const char *s, ...)
 	{
 		if (s[i] == '%' && ++i)
 		{
-			while (s[i] == ' ')
-				i++;
 			if (s[i] == '\0')
 				return (-1);
-			vaprintf(ap, s[i - 1], s[i], &cnt);
+			vaprintf(ap, s[i], &cnt);
 			i++;
 			continue ;
 		}

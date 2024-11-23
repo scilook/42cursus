@@ -6,23 +6,21 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:24:02 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/23 15:42:43 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/23 15:17:47 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 
-ssize_t	buf_check(char *buf, size_t buf_cnt)
+size_t	buf_check(char *buf, size_t buf_cnt)
 {
 	if (buf == NULL)
-		return (-1);
+		return (BUFFER_SIZE);
 	while (*(buf + buf_cnt) != '\0')
 	{
 		if (*(buf + buf_cnt) == '\n')
-		{
-			return (buf_cnt);
-		}
+			break ;
 		buf_cnt++;
 	}
 	return (buf_cnt);
@@ -32,26 +30,28 @@ char	*get_next_line(int fd)
 {
 	static char	*remain_buf;
 	char		*main_buf;
+	char		*tmp;
 	char		buf[BUFFER_SIZE + 1];
-	size_t		buf_cnt;
-	ssize_t		sob;
+	size_t		cnt;
 
 	if (ft_strlen(remain_buf) == buf_check(remain_buf, 0))
-		buf_cnt = BUFFER_SIZE;
+		cnt = BUFFER_SIZE;
 	else
-		buf_cnt = ft_strlen(remain_buf);
-	main_buf = ft_substr(remain_buf, 0, buf_check(remain_buf, 0));
-	remain_buf = remain_buf + buf_cnt + 1;
-	while (buf_cnt == BUFFER_SIZE)
 	{
-		sob = read(fd, buf, BUFFER_SIZE);
-		*(buf + BUFFER_SIZE) = '\0';
-		buf_cnt = buf_check(buf, 0);
-		remain_buf = buf + buf_cnt + 1;
-		ft_strjoin(main_buf, buf);
+		main_buf = ft_substr(remain_buf, 0, buf_check(remain_buf, 0));
+		remain_buf = remain_buf + buf_check(remain_buf, 0) + 1;
 	}
-	if (sob <= 0)
-		return (NULL);
+	buf[BUFFER_SIZE] = '\0';
+	while (cnt == BUFFER_SIZE)
+	{
+		if (read(fd, buf, BUFFER_SIZE) <= 0)
+			return (NULL);
+		cnt = buf_check(buf, 0);
+		tmp = ft_substr(buf, 0, cnt);
+		main_buf = ft_strjoin(main_buf, tmp);
+		free(tmp);
+		remain_buf = buf + cnt + 1;
+	}
 	return (main_buf);
 }
 
