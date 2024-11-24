@@ -78,7 +78,7 @@ static void	base_encoder(long int n, char *base, size_t *cnt)
 		ft_putchar_fd(chnbr[--i], 1, cnt);
 }
 
-void	vaprintf(va_list ap, const char ic, const char c, size_t *cnt)
+void	vaprintf(va_list ap, const char c, size_t *cnt)
 {
 	if (c == 's')
 		ft_putstr_fd(va_arg(ap, char *), 1, cnt);

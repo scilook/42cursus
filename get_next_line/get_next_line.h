@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:25:44 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/23 15:41:14 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/24 15:45:50 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 # include <unistd.h>
 # include <malloc.h>
 
-ssize_t	ft_strlen(const char *s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(char *s, int c);
+char	*ft_strjoin(char *s1, char const *s2);
+char	*ft_strcpy(char *dest, char const *src);
 char	*get_next_line(int fd);
 
 #endif /* GET_NEXT_LINE_H */
