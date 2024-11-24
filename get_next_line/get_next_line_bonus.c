@@ -6,11 +6,11 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:24:02 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/24 18:55:02 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/24 18:59:44 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	buf_check(char *buf)
 {

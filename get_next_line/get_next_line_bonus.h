@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:25:44 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/24 15:45:50 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/24 18:59:16 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
@@ -26,4 +26,4 @@ char	*ft_strjoin(char *s1, char const *s2);
 char	*ft_strcpy(char *dest, char const *src);
 char	*get_next_line(int fd);
 
-#endif /* GET_NEXT_LINE_H */
+#endif /* GET_NEXT_LINE_BONUS_H */
