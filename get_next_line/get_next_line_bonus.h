@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/24 18:24:57 by hyeson           ###   ########.fr       */
+/*   Created: 2024/11/12 17:25:44 by hyeson            #+#    #+#             */
+/*   Updated: 2024/11/24 15:45:50 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int	ft_printf(const char *s, ...)
-{
-	size_t	i;
-	size_t	cnt;
-	va_list	ap;
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif /* BUFFER_SIZE */
 
-	if (s == NULL)
-		return (-1);
-	cnt = 0;
-	va_start(ap, s);
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '%' && ++i)
-		{
-			if (s[i] == '\0')
-				return (-1);
-			vaprintf(ap, s[i], &cnt);
-			i++;
-			continue ;
-		}
-		ft_putchar_fd(s[i++], 1, &cnt);
-	}
-	va_end(ap);
-	return (cnt);
-}
+# include <unistd.h>
+# include <malloc.h>
+
+size_t	ft_strlen(const char *s);
+char	*ft_strchr(char *s, int c);
+char	*ft_strjoin(char *s1, char const *s2);
+char	*ft_strcpy(char *dest, char const *src);
+char	*get_next_line(int fd);
+
+#endif /* GET_NEXT_LINE_H */
