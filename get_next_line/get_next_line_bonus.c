@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:24:02 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/25 16:25:11 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/25 16:41:45 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	buf_check(char *buf)
 {
@@ -96,16 +96,16 @@ char	*read_line(int fd, char *remain)
 
 char	*get_next_line(int fd)
 {
-	static char	*remain;
+	static char	*remain[OPEN_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	remain = read_line(fd, remain);
+	remain[fd] = read_line(fd, remain[fd]);
 	if (remain == NULL)
 		return (NULL);
-	line = get_line(remain);
-	remain = line_feed(remain);
+	line = get_line(remain[fd]);
+	remain[fd] = line_feed(remain[fd]);
 	if (*line == '\0')
 	{
 		free(line);
