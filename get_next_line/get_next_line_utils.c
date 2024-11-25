@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 16:35:04 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/24 15:48:02 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/11/25 15:33:06 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strchr(char *s, int c)
 {
 	int	i;
 
+	if (s == NULL)
+		return (NULL);
 	i = 0;
 	while (s[i] != '\0')
 	{
@@ -78,6 +80,13 @@ char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*ptr;
 
+	if (s1 == NULL)
+	{
+		s1 = (char *)malloc(sizeof(char) * 1);
+		if (s1 == NULL)
+			return (NULL);
+		*s1 = '\0';
+	}
 	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (ptr == NULL)
 		return (NULL);
