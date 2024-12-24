@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 15:01:49 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/13 17:06:51 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/12/21 15:56:33 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	cnt;
 
 	cnt = 0;
-	while (*(s + cnt) == '\0')
+	while (*(s + cnt) != '\0')
 	{
 		cnt++;
 	}
