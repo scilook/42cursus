@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 16:28:37 by hyeson            #+#    #+#             */
-/*   Updated: 2024/12/24 15:45:50 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/12/25 16:28:26 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 # include <string.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include <errno.h>
 
 # include "libft/libft.h"
 
+void	redirect_input(char *file);
+void	redirect_output(char *file);
+void	pipex(char **argv, char **envp, size_t i);
 char	*seek_path(char *cmd, char **env);
 
 #endif
