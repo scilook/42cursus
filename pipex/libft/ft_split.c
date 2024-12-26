@@ -6,13 +6,13 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:42:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/11 16:44:00 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/12/26 17:42:28 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	word_count(const char *s, const char c)
+static size_t	word_count(char *s, const char c)
 {
 	size_t	i;
 	size_t	cnt;
@@ -37,12 +37,35 @@ static size_t	word_count(const char *s, const char c)
 	return (cnt);
 }
 
-static char	*ft_strcdup(const char *s, const char c)
+static int	strclen(char *s, char c)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (s[cnt] != c)
+	{
+		cnt++;
+	}
+	return (cnt);
+}
+
+static char	*ft_strcdup(char *s, const char c)
 {
 	char	*ptr;
 	size_t	i;
 
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	i = 0;
+	if (s[i] == '\'')
+	{
+		s++;
+		while (s[i] != '\'')
+		{
+			if (s[i] == ' ')
+				s[i] = -1;
+			i++;
+		}
+	}
+	ptr = (char *)malloc(sizeof(char) * (strclen(s, c) + 1));
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
@@ -66,7 +89,7 @@ static int	free_ptr(char **ptr, int i)
 	return (1);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**ptr;
 	size_t	i;

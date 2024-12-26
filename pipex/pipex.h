@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 16:28:37 by hyeson            #+#    #+#             */
-/*   Updated: 2024/12/25 16:28:26 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/12/26 12:53:58 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 void	redirect_input(char *file);
 void	redirect_output(char *file);
-void	pipex(char **argv, char **envp, size_t i);
+void	pipex(char **argv, char **envp);
 char	*seek_path(char *cmd, char **env);
 
 #endif

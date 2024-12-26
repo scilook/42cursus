@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 10:41:33 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/13 13:18:43 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/12/26 16:51:41 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		__attribute__((nonnull));
 char	*ft_strjoin(char const *s1, char const *s2)__attribute__((nonnull));
 char	*ft_strtrim(char const *s1, char const *set)__attribute__((nonnull));
-char	**ft_split(char const *s, char c)__attribute__((nonnull));
+char	**ft_split(char *s, char c)__attribute__((nonnull));
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		__attribute__((nonnull));
