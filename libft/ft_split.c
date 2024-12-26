@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:42:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/12/26 17:54:42 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/12/26 17:59:15 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static size_t	word_count(const char *s, const char c)
 	}
 	return (cnt);
 }
+
 static int	strclen(char *s, char c)
 {
 	int	cnt;
