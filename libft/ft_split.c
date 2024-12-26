@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:42:31 by hyeson            #+#    #+#             */
-/*   Updated: 2024/10/11 16:44:00 by hyeson           ###   ########.fr       */
+/*   Updated: 2024/12/26 17:26:58 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,24 @@ static size_t	word_count(const char *s, const char c)
 	}
 	return (cnt);
 }
+static int	strclen(char *s, char c)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (s[cnt] != c)
+	{
+		cnt++;
+	}
+	return (cnt);
+}
 
 static char	*ft_strcdup(const char *s, const char c)
 {
 	char	*ptr;
 	size_t	i;
 
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	ptr = (char *)malloc(sizeof(char) * (ft_strclen(s, c) + 1));
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
