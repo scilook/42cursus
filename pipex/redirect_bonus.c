@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   redirect_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 18:00:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/14 12:59:43 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/01/15 18:10:01 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	redirect_input(char *file)
 {
@@ -20,7 +20,7 @@ void	redirect_input(char *file)
 	if (fdin < 0)
 	{
 		perror("ft_sh");
-		exit(-1);
+		exit(1);
 	}
 	dup2(fdin, STDIN_FILENO);
 	close(fdin);
@@ -31,6 +31,20 @@ void	redirect_output(char *file)
 	int	fdout;
 
 	fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fdout < 0)
+	{
+		perror("ft_sh");
+		exit(1);
+	}
+	dup2(fdout, STDOUT_FILENO);
+	close(fdout);
+}
+
+void	here_doc_output(char *file)
+{
+	int	fdout;
+
+	fdout = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fdout < 0)
 	{
 		perror("ft_sh");
