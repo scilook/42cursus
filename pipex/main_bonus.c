@@ -6,19 +6,21 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:02:07 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/15 18:25:39 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/01/17 13:16:47 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-static void	here_doc(char **argv, char **envp)
+static void	here_doc(int argc, char **argv, char **envp)
 {
 	pid_t	pid;
 	size_t	i;
 	int		fd[2];
 
-	redirect_input(argv[2]);
+	if (argc < 5)
+		return ;
+	here_doc_input(argv[2]);
 	pipe(fd);
 	i = 3;
 	while (argv[i + 2])
@@ -34,12 +36,14 @@ static void	here_doc(char **argv, char **envp)
 	pipe_input(fd, argv[i], envp);
 }
 
-static void	pipex(char **argv, char **envp)
+static void	pipex(int argc, char **argv, char **envp)
 {
 	pid_t	pid;
 	size_t	i;
 	int		fd[2];
 
+	if (argc < 4)
+		return ;
 	redirect_input(argv[1]);
 	pipe(fd);
 	i = 2;
@@ -59,27 +63,27 @@ static void	pipex(char **argv, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	size_t	i;
+	char	*path;
 	char	**cmds;
 
-	if (argc < 4)
-		return (-1);
 	i = 2;
+	if (!ft_strncmp(argv[1], "here_doc", ft_strlen("here_doc")))
+		i++;
 	while (argv[i + 1])
 	{
 		cmds = ft_split(argv[i], ' ');
 		if (!cmds)
 			return (1);
-		if (!seek_path(cmds[0], envp))
+		path = seek_path(cmds[0], envp);
+		if (!path && free_split(cmds))
 			exit(127);
+		free(path);
+		free_split(cmds);
 		i++;
 	}
 	if (!ft_strncmp(argv[1], "here_doc", ft_strlen("here_doc")))
-	{
-		here_doc(argv, envp);
-	}
+		here_doc(argc, argv, envp);
 	else
-	{
-		pipex(argv, envp);
-	}
+		pipex(argc, argv, envp);
 	return (0);
 }

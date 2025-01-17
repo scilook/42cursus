@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 16:28:37 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/15 18:08:34 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/01/17 13:18:42 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	pipe_output(int *fd, char *argv, char **envp);
 void	seek_quote(char *arg);
 void	space_restore(char **split);
 char	*seek_path(char *cmd, char **env);
+int		free_split(char **split);
 
 #endif
