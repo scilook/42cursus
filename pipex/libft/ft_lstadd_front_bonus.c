@@ -1,41 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 18:00:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:18 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/04 16:42:47 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/06 10:01:19 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	redirect_input(char *file)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int	fdin;
-
-	fdin = open(file, O_RDONLY);
-	if (fdin < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdin, STDIN_FILENO);
-	close(fdin);
-}
-
-void	redirect_output(char *file)
-{
-	int	fdout;
-
-	fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fdout < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdout, STDOUT_FILENO);
-	close(fdout);
+	if (lst == NULL || new == NULL)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }

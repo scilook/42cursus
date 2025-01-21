@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 18:07:07 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/15 18:07:26 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/01/21 14:18:27 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	pipe_input(int *fd, char *argv, char **envp)
 	if (!cmd)
 		exit(127);
 	if (execve(cmd, cmds, envp))
-		perror("ft_sh");
+		perror("pipex");
 }
 
 void	pipe_output(int *fd, char *argv, char **envp)
@@ -86,5 +86,5 @@ void	pipe_output(int *fd, char *argv, char **envp)
 	if (!cmd)
 		exit(127);
 	if (execve(cmd, cmds, envp))
-		perror("ft_sh");
+		perror("pipex");
 }

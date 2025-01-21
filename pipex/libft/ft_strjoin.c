@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 18:00:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:18 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/02 14:46:11 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/10 13:53:28 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	redirect_input(char *file)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	fdin;
+	char	*ptr;
 
-	fdin = open(file, O_RDONLY);
-	if (fdin < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdin, STDIN_FILENO);
-	close(fdin);
-}
-
-void	redirect_output(char *file)
-{
-	int	fdout;
-
-	fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fdout < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdout, STDOUT_FILENO);
-	close(fdout);
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (ptr == NULL)
+		return (NULL);
+	ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
+	ft_strlcat(ptr, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	return (ptr);
 }

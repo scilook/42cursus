@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 18:00:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:18 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/01 18:21:42 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/13 09:38:00 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	redirect_input(char *file)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int	fdin;
+	size_t			i;
+	unsigned char	*ptr;
 
-	fdin = open(file, O_RDONLY);
-	if (fdin < 0)
+	i = 0;
+	ptr = (unsigned char *)s;
+	while (i < n)
 	{
-		perror("pipex");
-		exit(-1);
+		if (ptr[i] == (unsigned char) c)
+		{
+			return (ptr + i);
+		}
+		i++;
 	}
-	dup2(fdin, STDIN_FILENO);
-	close(fdin);
-}
-
-void	redirect_output(char *file)
-{
-	int	fdout;
-
-	fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fdout < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdout, STDOUT_FILENO);
-	close(fdout);
+	return (NULL);
 }

@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 18:00:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:18 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/02 09:50:38 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/13 13:00:08 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	redirect_input(char *file)
+int	ft_atoi(const char *s)
 {
-	int	fdin;
+	size_t	i;
+	int		result;
+	int		flag;
 
-	fdin = open(file, O_RDONLY);
-	if (fdin < 0)
+	i = 0;
+	result = 0;
+	flag = 1;
+	while (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
+		i++;
+	if (s[i] == '-')
 	{
-		perror("pipex");
-		exit(-1);
+		flag = -1;
+		i++;
 	}
-	dup2(fdin, STDIN_FILENO);
-	close(fdin);
-}
-
-void	redirect_output(char *file)
-{
-	int	fdout;
-
-	fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fdout < 0)
+	else if (s[i] == '+')
+		i++;
+	while (s[i] >= '0' && s[i] <= '9')
 	{
-		perror("pipex");
-		exit(-1);
+		result = result * 10 + ((char)s[i] - '0');
+		i++;
 	}
-	dup2(fdout, STDOUT_FILENO);
-	close(fdout);
+	return (flag * result);
 }

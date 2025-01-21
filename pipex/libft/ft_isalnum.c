@@ -1,41 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 18:00:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:18 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/01 14:45:36 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/11 12:33:09 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	redirect_input(char *file)
+int	ft_isalnum(int c)
 {
-	int	fdin;
-
-	fdin = open(file, O_RDONLY);
-	if (fdin < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdin, STDIN_FILENO);
-	close(fdin);
-}
-
-void	redirect_output(char *file)
-{
-	int	fdout;
-
-	fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fdout < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdout, STDOUT_FILENO);
-	close(fdout);
+	return (ft_isalpha(c) || ft_isdigit(c));
 }

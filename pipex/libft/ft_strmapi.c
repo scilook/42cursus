@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 18:00:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:18 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/03 09:59:34 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/06 09:58:47 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	redirect_input(char *file)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	fdin;
+	char	*str;
+	size_t	slen;
+	size_t	i;
 
-	fdin = open(file, O_RDONLY);
-	if (fdin < 0)
+	slen = ft_strlen(s);
+	str = (char *)malloc(sizeof(char) * (slen + 1));
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (i < slen)
 	{
-		perror("pipex");
-		exit(-1);
+		str[i] = f(i, s[i]);
+		i++;
 	}
-	dup2(fdin, STDIN_FILENO);
-	close(fdin);
-}
-
-void	redirect_output(char *file)
-{
-	int	fdout;
-
-	fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fdout < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdout, STDOUT_FILENO);
-	close(fdout);
+	str[i] = '\0';
+	return (str);
 }

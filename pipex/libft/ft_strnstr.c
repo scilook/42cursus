@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 18:00:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:18 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/01 21:18:32 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/11 19:02:00 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	redirect_input(char *file)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	int	fdin;
+	size_t	i;
+	size_t	littlelen;
 
-	fdin = open(file, O_RDONLY);
-	if (fdin < 0)
+	littlelen = ft_strlen(little);
+	if (little[0] == '\0')
+		return ((char *)big);
+	i = 0;
+	while (big[i] != '\0' && i + littlelen <= len)
 	{
-		perror("pipex");
-		exit(-1);
+		if (little[0] == big[i])
+		{
+			if (ft_strncmp(little, big + i, littlelen) == 0)
+				return ((char *)big + i);
+		}
+		i++;
 	}
-	dup2(fdin, STDIN_FILENO);
-	close(fdin);
-}
-
-void	redirect_output(char *file)
-{
-	int	fdout;
-
-	fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fdout < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdout, STDOUT_FILENO);
-	close(fdout);
+	return (NULL);
 }

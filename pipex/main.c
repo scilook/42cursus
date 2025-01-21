@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 18:04:14 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/17 13:19:19 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/01/20 15:54:50 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int	main(int argc, char **argv, char **envp)
 	char	*path;
 	char	**cmds;
 
+	if (argc != 5)
+		return (1);
 	i = 2;
-	if (!ft_strncmp(argv[1], "here_doc", ft_strlen("here_doc")))
-		i++;
-	while (argv[i + 1])
+	while (i < 4)
 	{
 		cmds = ft_split(argv[i], ' ');
 		if (!cmds)

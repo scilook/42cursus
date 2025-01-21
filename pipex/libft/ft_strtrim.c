@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 18:00:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:19:18 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/02 15:41:52 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/13 09:46:17 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	redirect_input(char *file)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	int	fdin;
+	char	*str;
+	size_t	i;
+	size_t	j;
 
-	fdin = open(file, O_RDONLY);
-	if (fdin < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdin, STDIN_FILENO);
-	close(fdin);
-}
-
-void	redirect_output(char *file)
-{
-	int	fdout;
-
-	fdout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fdout < 0)
-	{
-		perror("pipex");
-		exit(-1);
-	}
-	dup2(fdout, STDOUT_FILENO);
-	close(fdout);
+	i = 0;
+	while (ft_strchr(set, s1[i]) != NULL && s1[i] != '\0')
+		i++;
+	j = 0;
+	while ((ft_strlen(s1) - i) && ft_strchr(set, s1[ft_strlen(s1) - j - 1]))
+		j++;
+	str = ft_substr(s1, i, ft_strlen(s1) - i - j);
+	return (str);
 }
