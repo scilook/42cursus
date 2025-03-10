@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 11:26:00 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:18:41 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/01/22 12:40:18 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,25 @@ void	space_restore(char **split)
 	}
 }
 
-void	pipe_input(int *fd, char *argv, char **envp)
+void	pipe_input(int *fd)
 {
-	char	**cmds;
-	char	*cmd;
-
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
-	cmds = ft_split(argv, ' ');
-	space_restore(cmds);
-	cmd = seek_path(cmds[0], envp);
-	if (!cmd)
-		exit(127);
-	if (execve(cmd, cmds, envp))
-		perror("pipex");
 }
 
-void	pipe_output(int *fd, char *argv, char **envp)
+void	pipe_output(int *fd)
+{
+	close(fd[0]);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[1]);
+}
+
+void	pipe_execute(char *argv, char **envp)
 {
 	char	**cmds;
 	char	*cmd;
 
-	close(fd[0]);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
 	cmds = ft_split(argv, ' ');
 	space_restore(cmds);
 	cmd = seek_path(cmds[0], envp);
@@ -87,4 +81,5 @@ void	pipe_output(int *fd, char *argv, char **envp)
 		exit(127);
 	if (execve(cmd, cmds, envp))
 		perror("pipex");
+
 }

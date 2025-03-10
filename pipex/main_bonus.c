@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:02:07 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/21 14:29:02 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/01/22 14:12:13 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,17 @@ static void	here_doc(int argc, char **argv, char **envp)
 		seek_quote(argv[i]);
 		pid = fork();
 		if (pid == 0)
-			pipe_output(fd, argv[i], envp);
+		{
+			pipe_output(fd);
+			pipe_execute(argv[i], envp);
+		}
+		waitpid(pid, NULL, 0);
+		pipe_input(fd);
 		i++;
 	}
-	waitpid(pid, NULL, WNOHANG);
 	here_doc_output(argv[i + 1]);
 	seek_quote(argv[i]);
-	pipe_input(fd, argv[i], envp);
+	pipe_execute(argv[i], envp);
 }
 
 static void	pipex(int argc, char **argv, char **envp)
@@ -61,13 +65,16 @@ static void	pipex(int argc, char **argv, char **envp)
 		seek_quote(argv[i]);
 		pid = fork();
 		if (pid == 0)
-			pipe_output(fd, argv[i], envp);
+		{
+			pipe_output(fd);
+			pipe_execute(argv[i], envp);
+		}
 		i++;
 	}
-	waitpid(pid, NULL, WNOHANG);
 	redirect_output(argv[i + 1]);
 	seek_quote(argv[i]);
-	pipe_input(fd, argv[i], envp);
+	pipe_input(fd);
+	pipe_execute(argv[i], envp);
 }
 
 int	main(int argc, char **argv, char **envp)

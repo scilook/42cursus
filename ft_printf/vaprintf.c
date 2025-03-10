@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:50:14 by hyeson            #+#    #+#             */
-/*   Updated: 2024/11/24 19:00:44 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/01/25 15:22:48 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,5 @@ void	vaprintf(va_list ap, const char c, size_t *cnt)
 	else if (c == 'X')
 		base_encoder(va_arg(ap, unsigned int), "0123456789ABCDEF", cnt);
 	else
-	{
 		ft_putchar_fd('%', 1, cnt);
-		if (c != '%')
-			ft_putchar_fd(c, 1, cnt);
-	}
 }
