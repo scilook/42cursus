@@ -6,12 +6,16 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:54:48 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/26 17:37:17 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/12 17:09:52 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif /* BUFFER_SIZE */
 
 # include "/home/hyeson/Documents/minilibx-linux/mlx.h"
 # include "/home/hyeson/Documents/minilibx-linux/mlx_int.h"
@@ -39,6 +43,7 @@ typedef struct s_var
 {
 	void	*mlx;
 	void	*win;
+	char	**map;
 }	t_var;
 
 typedef struct s_point
@@ -49,7 +54,7 @@ typedef struct s_point
 
 char	**create_map(char *argv);
 void	image_align(void *mlx, t_set *set);
-void	map_parse(t_set *set, char **map, t_var vars);
+void	map_parse(t_set *set, t_var vars);
 void	if_ret(char bool);
 
 #endif

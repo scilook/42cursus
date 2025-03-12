@@ -6,24 +6,15 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:55:50 by hyeson            #+#    #+#             */
-/*   Updated: 2025/02/03 15:59:21 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/11 20:19:11 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	if_ret(char bool)
-{
-	if (bool)
-	{
-		write(STDOUT_FILENO, "ERROR\n", 7);
-		exit(0);
-	}
-}
-
 static char	*read_line(int fd)
 {
-	char	buf[1025];
+	char	buf[BUFFER_SIZE + 1];
 	char	*line;
 	ssize_t	size;
 
@@ -31,7 +22,7 @@ static char	*read_line(int fd)
 	line = NULL;
 	while (size > 0)
 	{
-		size = read(fd, buf, 1024);
+		size = read(fd, buf, BUFFER_SIZE);
 		if (size < 0)
 			return (NULL);
 		buf[size] = '\0';
@@ -52,7 +43,6 @@ static char	*read_line(int fd)
 void	valid_check(char **map)
 {
 	t_point	point;
-	size_t	size;
 	char	collectible;
 	char	exit;
 	char	player;
@@ -62,7 +52,6 @@ void	valid_check(char **map)
 	collectible = 0;
 	exit = 0;
 	player = 0;
-	size = ft_strlen(map[0]);
 	while (map[0][point.y])
 	{
 		if_ret(map[0][point.y] != '1');
