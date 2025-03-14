@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:54:48 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/12 17:09:52 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/14 10:05:57 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # include "/home/hyeson/Documents/minilibx-linux/mlx.h"
 # include "/home/hyeson/Documents/minilibx-linux/mlx_int.h"
-# include "../libft/libft.h"
+# include "libft/libft.h"
 
 typedef struct s_set
 {
@@ -29,15 +29,6 @@ typedef struct s_set
 	void	*player;
 	void	*wall;
 }	t_set;
-
-typedef struct s_data
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-}	t_data;
 
 typedef struct s_var
 {
@@ -52,9 +43,17 @@ typedef struct s_point
 	size_t	y;
 }	t_point;
 
+typedef struct s_sets
+{
+	t_var	*var;
+	t_set	*set;
+	t_point	*point;
+}	t_sets;
+
+
 char	**create_map(char *argv);
 void	image_align(void *mlx, t_set *set);
-void	map_parse(t_set *set, t_var vars);
+void	map_parse(t_sets *sets);
 void	if_ret(char bool);
 
 #endif

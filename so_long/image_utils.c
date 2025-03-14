@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:06:43 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/10 17:02:20 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/14 10:13:42 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	if_ret(char bool)
 {
 	if (bool)
 	{
-		write(STDOUT_FILENO, "ERROR\n", 7);
+		write(STDOUT_FILENO, "ERROR!\n", 7);
 		exit(0);
 	}
 }
