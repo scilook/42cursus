@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 11:26:00 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/22 12:40:18 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/15 17:07:28 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,4 @@ void	pipe_execute(char *argv, char **envp)
 		exit(127);
 	if (execve(cmd, cmds, envp))
 		perror("pipex");
-
 }

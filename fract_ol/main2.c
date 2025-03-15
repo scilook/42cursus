@@ -6,12 +6,12 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:22:18 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/25 15:48:22 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/13 11:00:00 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilibx-linux/mlx.h"
-#include "minilibx-linux/mlx_int.h"
+#include "../minilibx-linux/mlx.h"
+#include "../minilibx-linux/mlx_int.h"
 
 typedef struct	s_data
 {

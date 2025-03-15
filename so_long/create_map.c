@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:55:50 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/14 11:51:15 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/15 18:15:56 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,57 +40,63 @@ static char	*read_line(int fd)
 	return (line);
 }
 
-void	valid_check(char **map)
+static void	edge_check(t_set *set)
 {
-	t_point	point;
-	char	collectible;
-	char	exit;
-	char	player;
+	size_t	line_length;
+	size_t	i;
 
-	point.x = 0;
-	point.y = 0;
-	collectible = 0;
-	exit = 0;
-	player = 0;
-	while (map[0][point.y])
+	line_length = ft_strlen(set->map[0]);
+	i = 0;
+	while (set->map[i])
 	{
-		if_ret(map[0][point.y] != '1');
-		point.y++;
+		if_ret(ft_strlen(set->map[i]) != line_length, set);
+		if_ret(set->map[i][set->x - 1] != '1', set);
+		if_ret(set->map[i][0] != '1', set);
+		i++;
 	}
-	while (map[point.x])
+	i = 0;
+	while (i < line_length)
 	{
-		point.y = 0;
-		while (map[point.x][point.y])
-		{
-			if (map[point.x][point.y] == 'C')
-				collectible++;
-			if (map[point.x][point.y] == 'E')
-				exit++;
-			if (map[point.x][point.y] == 'P')
-				player++;
-			point.y++;
-		}
-		point.x++;
-	}
-	if_ret(!(collectible > 0 && exit == 1 && player == 1));
-	point.y == 0;
-	while (map[point.x - 1][point.y])
-	{
-		if_ret(map[point.x - 1][point.y] != '1');
-		point.y++;
+		if_ret(set->map[0][i] != '1', set);
+		if_ret(set->map[set->y - 1][i] != '1', set);
+		i++;
 	}
 }
 
-char	**create_map(char *argv)
+static void	valid_check(t_set *set)
+{
+	set->y = 0;
+	while (set->map[set->y])
+	{
+		set->x = 0;
+		while (set->map[set->y][set->x])
+		{
+			if (set->map[set->y][set->x] == 'C')
+				set->c++;
+			if (set->map[set->y][set->x] == 'E')
+				set->e++;
+			if (set->map[set->y][set->x] == 'P')
+			{
+				set->p++;
+				set->p_y = set->y;
+				set->p_x = set->x;
+			}
+			set->x++;
+		}
+		set->y++;
+	}
+	if_ret(!(set->c > 0 && set->e == 1 && set->p == 1), set);
+}
+
+void	create_map(char *argv, t_set *set)
 {
 	char	*line;
-	char	**map;
 	int		fd;
 
 	fd = open(argv, O_RDONLY);
 	line = read_line(fd);
-	map = ft_split(line, '\n');
+	set->map = ft_split(line, '\n');
 	free(line);
-	valid_check(map);
-	return (map);
+	valid_check(set);
+	edge_check(set);
 }

@@ -6,48 +6,45 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 16:15:47 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/14 10:19:26 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/15 15:49:35 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	map_parse(t_sets *sets)
+void	convert2image(t_set *set)
 {
-	t_point	p;
-
-	p.y = 0;
-	while (sets->var->map[p.y])
-	{
-		p.x = 0;
-		while (sets->var->map[p.y][p.x])
-		{
-			printf("%c ", sets->var->map[p.y][p.x]);
-			convert2image(p, *sets);
-			p.x++;
-		}
-		printf("\n");
-		p.y++;
-	}
+	if (set->map[set->y][set->x] == 'C')
+		mlx_put_image_to_window(set->mlx, set->win, \
+		set->col, 64 * set->x, 64 * set->y);
+	else if (set->map[set->y][set->x] == '0')
+		mlx_put_image_to_window(set->mlx, set->win, \
+		set->empty, 64 * set->x, 64 * set->y);
+	else if (set->map[set->y][set->x] == 'E')
+		mlx_put_image_to_window(set->mlx, set->win, \
+		set->exit, 64 * set->x, 64 * set->y);
+	else if (set->map[set->y][set->x] == 'P')
+		mlx_put_image_to_window(set->mlx, set->win, \
+		set->player, 64 * set->x, 64 * set->y);
+	else if (set->map[set->y][set->x] == '1')
+		mlx_put_image_to_window(set->mlx, set->win, \
+		set->wall, 64 * set->x, 64 * set->y);
+	else
+		if_ret(1, set);
 }
 
-void	convert2image(t_point p, t_sets s)
+int	map_parse(t_set *set)
 {
-	if (s.var->map[p.y][p.x] == 'C')
-		mlx_put_image_to_window(s.var->mlx, s.var->win, \
-		s.set->col, 64 * p.x, 64 * p.y);
-	else if (s.var->map[p.y][p.x] == '0')
-		mlx_put_image_to_window(s.var->mlx, s.var->win, \
-		s.set->empty, 64 * p.x, 64 * p.y);
-	else if (s.var->map[p.y][p.x] == 'E')
-		mlx_put_image_to_window(s.var->mlx, s.var->win, \
-		s.set->exit, 64 * p.x, 64 * p.y);
-	else if (s.var->map[p.y][p.x] == 'P')
-		mlx_put_image_to_window(s.var->mlx, s.var->win, \
-		s.set->player, 64 * p.x, 64 * p.y);
-	else if (s.var->map[p.y][p.x] == '1')
-		mlx_put_image_to_window(s.var->mlx, s.var->win, \
-		s.set->wall, 64 * p.x, 64 * p.y);
-	else
-		if_ret(1);
+	set->y = 0;
+	while (set->map[set->y])
+	{
+		set->x = 0;
+		while (set->map[set->y][set->x])
+		{
+			convert2image(set);
+			set->x++;
+		}
+		set->y++;
+	}
+	return (0);
 }

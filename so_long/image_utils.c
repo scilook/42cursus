@@ -6,31 +6,39 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:06:43 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/14 10:13:42 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/15 18:41:57 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	destroy_win(t_set *set)
+{
+	mlx_destroy_window(set->mlx, set->win);
+	while (set->map[--set->y])
+		free(set->map[set->y]);
+	free(set->map);
+}
 
-void	if_ret(char bool)
+void	if_ret(int bool, t_set *set)
 {
 	if (bool)
 	{
-		write(STDOUT_FILENO, "ERROR!\n", 7);
+		write(1, "ERROR\n", 7);
+		destroy_win(set);
 		exit(0);
 	}
 }
 
-void	image_align(void *mlx, t_set *set)
+void	image_align(t_set *set)
 {
 	int	w;
 	int	h;
 
-	set->col = mlx_xpm_file_to_image(mlx, "./set/col.xpm", &w, &h);
-	set->empty = mlx_xpm_file_to_image(mlx, "./set/empty.xpm", &w, &h);
-	set->exit = mlx_xpm_file_to_image(mlx, "./set/exit.xpm", &w, &h);
-	set->player = mlx_xpm_file_to_image(mlx, "./set/player.xpm", &w, &h);
-	set->wall = mlx_xpm_file_to_image(mlx, "./set/wall.xpm", &w, &h);
+	set->col = mlx_xpm_file_to_image(set->mlx, "./set/col.xpm", &w, &h);
+	set->empty = mlx_xpm_file_to_image(set->mlx, "./set/empty.xpm", &w, &h);
+	set->exit = mlx_xpm_file_to_image(set->mlx, "./set/exit.xpm", &w, &h);
+	set->player = mlx_xpm_file_to_image(set->mlx, "./set/player.xpm", &w, &h);
+	set->wall = mlx_xpm_file_to_image(set->mlx, "./set/wall.xpm", &w, &h);
 }
 

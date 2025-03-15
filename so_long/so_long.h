@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:54:48 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/14 10:05:57 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/15 18:40:52 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #  define BUFFER_SIZE 42
 # endif /* BUFFER_SIZE */
 
-# include "/home/hyeson/Documents/minilibx-linux/mlx.h"
-# include "/home/hyeson/Documents/minilibx-linux/mlx_int.h"
+# include "minilibx-linux/mlx.h"
+# include "minilibx-linux/mlx_int.h"
 # include "libft/libft.h"
 
 typedef struct s_set
@@ -28,32 +28,23 @@ typedef struct s_set
 	void	*exit;
 	void	*player;
 	void	*wall;
-}	t_set;
-
-typedef struct s_var
-{
 	void	*mlx;
 	void	*win;
 	char	**map;
-}	t_var;
-
-typedef struct s_point
-{
 	size_t	x;
 	size_t	y;
-}	t_point;
+	size_t	p_x;
+	size_t	p_y;
+	int		c;
+	int		e;
+	int		p;
+}	t_set;
 
-typedef struct s_sets
-{
-	t_var	*var;
-	t_set	*set;
-	t_point	*point;
-}	t_sets;
-
-
-char	**create_map(char *argv);
-void	image_align(void *mlx, t_set *set);
-void	map_parse(t_sets *sets);
-void	if_ret(char bool);
+int		key_control_hook(int keycode, t_set *set);
+int		map_parse(t_set *set);
+void	destroy_win(t_set *set);
+void	image_align(t_set *set);
+void	if_ret(int bool, t_set *set);
+void	create_map(char *argv, t_set *set);
 
 #endif

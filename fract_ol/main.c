@@ -6,12 +6,12 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:03:03 by hyeson            #+#    #+#             */
-/*   Updated: 2025/01/24 14:41:17 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/13 11:01:50 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minilibx-linux/mlx.h"
-#include "minilibx-linux/mlx_int.h"
+#include "../minilibx-linux/mlx.h"
+#include "../minilibx-linux/mlx_int.h"
 
 typedef struct s_vars
 {
