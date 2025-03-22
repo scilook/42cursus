@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:22:18 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/15 18:25:22 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/17 17:18:51 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	main(int argc, char **argv)
 	create_map(argv[1], &set);
 	set.win = mlx_new_window(set.mlx, 64 * set.x, 64 * set.y, argv[0]);
 	mlx_key_hook(set.win, key_control_hook, &set);
+	//mlx_hook(set.win, mouse_hook, &set);
 	mlx_loop_hook(set.mlx, map_parse, &set);
 	mlx_loop(set.mlx);
 	return (0);
 }
+

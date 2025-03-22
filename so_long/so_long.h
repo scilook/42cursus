@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:54:48 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/15 18:40:52 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/22 15:51:16 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
 # include "libft/libft.h"
+
+typedef struct s_point
+{
+	size_t	x;
+	size_t	y;
+}	t_point;
 
 typedef struct s_set
 {
@@ -41,10 +47,14 @@ typedef struct s_set
 }	t_set;
 
 int		key_control_hook(int keycode, t_set *set);
+int		ft_pointcmp(t_point *content, t_list *lst);
 int		map_parse(t_set *set);
+void	lst_clear(t_list *lst);
 void	destroy_win(t_set *set);
 void	image_align(t_set *set);
+void	condition_check(t_set *set);
 void	if_ret(int bool, t_set *set);
 void	create_map(char *argv, t_set *set);
+t_list	*point_list(t_point *point);
 
 #endif

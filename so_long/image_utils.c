@@ -6,18 +6,29 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:06:43 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/15 18:41:57 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/22 17:49:48 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	image_destroy(t_set *set)
+{
+	mlx_destroy_image(set->mlx, set->col);
+	mlx_destroy_image(set->mlx, set->empty);
+	mlx_destroy_image(set->mlx, set->exit);
+	mlx_destroy_image(set->mlx, set->player);
+	mlx_destroy_image(set->mlx, set->wall);
+}
+
 void	destroy_win(t_set *set)
 {
-	mlx_destroy_window(set->mlx, set->win);
 	while (set->map[--set->y])
 		free(set->map[set->y]);
 	free(set->map);
+	image_destroy(set);
+	mlx_destroy_window(set->mlx, set->win);
+	mlx_destroy_display(set->mlx);
 }
 
 void	if_ret(int bool, t_set *set)
@@ -41,4 +52,3 @@ void	image_align(t_set *set)
 	set->player = mlx_xpm_file_to_image(set->mlx, "./set/player.xpm", &w, &h);
 	set->wall = mlx_xpm_file_to_image(set->mlx, "./set/wall.xpm", &w, &h);
 }
-

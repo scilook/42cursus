@@ -6,16 +6,29 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:55:50 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/15 18:15:56 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/22 17:22:32 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+static char	*line_init(char *line)
+{
+	if (line == NULL)
+	{
+		line = (char *)malloc(sizeof(char) * 1);
+		if (line == NULL)
+			return (NULL);
+		*line = '\0';
+	}
+	return (line);
+}
+
 static char	*read_line(int fd)
 {
 	char	buf[BUFFER_SIZE + 1];
 	char	*line;
+	char	*tmp;
 	ssize_t	size;
 
 	size = 1;
@@ -26,14 +39,10 @@ static char	*read_line(int fd)
 		if (size < 0)
 			return (NULL);
 		buf[size] = '\0';
-		if (line == NULL)
-		{
-			line = (char *)malloc(sizeof(char) * 1);
-			if (line == NULL)
-				return (NULL);
-			*line = '\0';
-		}
+		line = line_init(line);
+		tmp = line;
 		line = ft_strjoin(line, buf);
+		free(tmp);
 		if (line == NULL)
 			return (NULL);
 	}
@@ -95,8 +104,10 @@ void	create_map(char *argv, t_set *set)
 
 	fd = open(argv, O_RDONLY);
 	line = read_line(fd);
+	close(fd);
 	set->map = ft_split(line, '\n');
 	free(line);
 	valid_check(set);
 	edge_check(set);
+	//condition_check(set);
 }
