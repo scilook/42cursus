@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 15:02:56 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/22 17:38:57 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/23 13:39:34 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,12 @@ void	key_down(int keycode, t_set *set)
 
 int	key_control_hook(int keycode, t_set *set)
 {
-	if (keycode == 65307)
-		destroy_win(set);
 	key_left(keycode, set);
 	key_up(keycode, set);
 	key_right(keycode, set);
 	key_down(keycode, set);
-	if (set->e == 0)
-		destroy_win(set);
+	if (keycode == 65307 || set->e == 0)
+		mlx_loop_end(set->mlx);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:21:33 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/22 16:29:30 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/23 12:39:01 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	condition_check(t_set *set)
 
 	savepoint = NULL;
 	point = (t_point *)malloc(sizeof(t_point));
-	point->x = set->p_x;
-	point->y = set->p_y;
+	if (!point)
+		if_ret(1, set);
 	place = point_list(point);
 	while (place || set->map[point->y][point->x] != 'E')
 	{

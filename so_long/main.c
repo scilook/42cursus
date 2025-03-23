@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:22:18 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/17 17:18:51 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/23 13:55:54 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ int	main(int argc, char **argv)
 	mlx_key_hook(set.win, key_control_hook, &set);
 	//mlx_hook(set.win, mouse_hook, &set);
 	mlx_loop_hook(set.mlx, map_parse, &set);
+	mlx_hook(set.win, 17, 0, mlx_loop_end, set.mlx);
 	mlx_loop(set.mlx);
+	destroy_win(&set);
+	mlx_destroy_window(set.mlx, set.win);
+	mlx_destroy_display(set.mlx);
 	return (0);
 }
 

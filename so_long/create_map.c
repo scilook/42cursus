@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:55:50 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/22 17:22:32 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/23 12:41:02 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,5 @@ void	create_map(char *argv, t_set *set)
 	free(line);
 	valid_check(set);
 	edge_check(set);
-	//condition_check(set);
+	condition_check(set);
 }
