@@ -47,7 +47,7 @@ static void	free_visited_map(int **copied, int y)
 	free(copied);
 }
 
-int	periodic_func(int i)
+static int	periodic_func(int i)
 {
 	if (i == 0)
 		return (-1);
@@ -61,33 +61,38 @@ int	periodic_func(int i)
 		return (0);
 }
 
-static size_t	func(t_set *set, t_queue *queue, t_point *current, int **copied)
+static void	around_search(t_set *set, t_queue *queue, t_point *current, int **copied)
 {
-	int i, x, y;
-	size_t found = 0;
+	int x;
+	int y;
+	int i;
 
+	i = 0;
+	while (i < 4)
+	{
+		x = current->x + periodic_func(i + 1);
+		y = current->y + periodic_func(i);
+		if (set->map[y][x] != '1' && !copied[y][x])
+		{
+			copied[y][x] = '1';
+			enqueue_point(queue, x, y);
+		}
+		i++;
+	}
+}
+
+static size_t	func(t_set *set, t_queue *queue, t_point *current, int **copied, size_t *found)
+{
 	while (queue->size > 0)
 	{
 		current = dequeue_point(queue);
 		if (!current)
 			break ;
 		if (set->map[current->y][current->x] == 'E')
-			found++;
+			found[0]++;
 		if (set->map[current->y][current->x] == 'C')
-			found++;
-		i = 0;
-		while (i < 4)
-		{
-			x = current->x + periodic_func(i + 1);
-			y = current->y + periodic_func(i);
-			if (x >= 0 && x < set->x && y >= 0 && y < set->y \
-				&& set->map[y][x] != '1' && !copied[y][x])
-			{
-				copied[y][x] = '1';
-				enqueue_point(queue, x, y);
-			}
-			i++;
-		}
+			found[1]++;
+		around_search(set, queue, current, copied);
 		free(current);
 	}
 	return (found);
@@ -97,9 +102,11 @@ void	condition_check(t_set *set)
 {
 	t_queue	*queue;
 	t_point	*current;
-	size_t	found;
+	size_t	found[2];
 	int		**copied;
 
+	found[0] = 0;
+	found[1] = 0;
 	queue = init_queue();
 	if (!queue)
 		if_ret(1, set);
@@ -111,11 +118,9 @@ void	condition_check(t_set *set)
 	}
 	enqueue_point(queue, set->p_x, set->p_y);
 	copied[set->p_y][set->p_x] = '1';
-	found = func(set, queue, current, copied);
+	found = func(set, queue, current, copied, found);
 	free_queue(queue);
 	free_visited_map(copied, set->y);
-	if (found != set->e + set->c)
+	if (found[0] != set->e || found[1] != set->c)
 		if_ret(1, set);
 }
-
-// e랑 c분리
