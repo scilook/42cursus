@@ -5,120 +5,117 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 12:21:33 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/23 12:39:01 by hyeson           ###   ########.fr       */
+/*   Created: 2025/03/23 14:39:24 by hyeson            #+#    #+#             */
+/*   Updated: 2025/03/23 18:09:34 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	left_search(t_point *point, t_list **place, t_list **savepoint)
+static int	**copied_map(t_set *set)
 {
-	t_list	*get_place;
+	int	**copied;
+	int	i;
 
-	get_place = *place;
-	if (ft_pointcmp(get_place->content, *savepoint))
-		*place = get_place->next;
-	else
+	copied = (int **)malloc(sizeof(int *) * set->y);
+	if (!copied)
+		return (NULL);
+	i = 0;
+	while (i < set->y)
 	{
-		if (*savepoint == NULL)
-			*savepoint = point_list(point);
-		else
-			ft_lstadd_front(savepoint, point_list(point));
-		point->x--;
-		ft_lstadd_front(place, point_list(point));
+		copied[i] = (int *)malloc(sizeof(int) * set->x);
+		if (!copied[i])
+		{
+			while (i > 0)
+				free(copied[--i]);
+			free(copied);
+			return (NULL);
+		}
+		ft_bzero(copied[i], sizeof(int) * set->x);
+		i++;
 	}
+	return (copied);
 }
 
-static void	upper_search(t_point *point, t_list **place, t_list **savepoint)
+static void	free_visited_map(int **copied, int y)
 {
-	t_list	*get_place;
+	int i;
 
-	get_place = *place;
-	if (ft_pointcmp(get_place->content, *savepoint))
-		*place = get_place->next;
-	else
-	{
-		if (*savepoint == NULL)
-			*savepoint = point_list(point);
-		else
-			ft_lstadd_front(savepoint, point_list(point));
-		point->y--;
-		ft_lstadd_front(place, point_list(point));
-	}
+	i = 0;
+	while (i < y)
+		free(copied[i++]);
+	free(copied);
 }
 
-static void	right_search(t_point *point, t_list **place, t_list **savepoint)
+int	periodic_func(int i)
 {
-	t_list	*get_place;
-
-	get_place = *place;
-	if (ft_pointcmp(get_place->content, *savepoint))
-		*place = get_place->next;
-	else
-	{
-		if (*savepoint == NULL)
-			*savepoint = point_list(point);
-		else
-			ft_lstadd_front(savepoint, point_list(point));
-		point->x++;
-		ft_lstadd_front(place, point_list(point));
-	}
+	if (i == 0)
+		return (-1);
+	else if (i == 1)
+		return (0);
+	else if (i == 2)
+		return (1);
+	else if (i == 3)
+		return (0);
+	else if (i == 4)
+		return (0);
 }
 
-static void	down_search(t_point *point, t_list **place, t_list **savepoint)
+static size_t	func(t_set *set, t_queue *queue, t_point *current, int **copied)
 {
-	t_list	*get_place;
+	int i, x, y;
+	size_t found = 0;
 
-	get_place = *place;
-	if (ft_pointcmp(get_place->content, *savepoint))
-		*place = get_place->next;
-	else
+	while (queue->size > 0)
 	{
-		if (*savepoint == NULL)
-			*savepoint = point_list(point);
-		else
-			ft_lstadd_front(savepoint, point_list(point));
-		point->y++;
-		ft_lstadd_front(place, point_list(point));
+		current = dequeue_point(queue);
+		if (!current)
+			break ;
+		if (set->map[current->y][current->x] == 'E')
+			found++;
+		if (set->map[current->y][current->x] == 'C')
+			found++;
+		i = 0;
+		while (i < 4)
+		{
+			x = current->x + periodic_func(i + 1);
+			y = current->y + periodic_func(i);
+			if (x >= 0 && x < set->x && y >= 0 && y < set->y \
+				&& set->map[y][x] != '1' && !copied[y][x])
+			{
+				copied[y][x] = '1';
+				enqueue_point(queue, x, y);
+			}
+			i++;
+		}
+		free(current);
 	}
+	return (found);
 }
 
 void	condition_check(t_set *set)
 {
-	t_list	*place;
-	t_list	*savepoint;
-	t_point	*point;
+	t_queue	*queue;
+	t_point	*current;
+	size_t	found;
+	int		**copied;
 
-	savepoint = NULL;
-	point = (t_point *)malloc(sizeof(t_point));
-	if (!point)
+	queue = init_queue();
+	if (!queue)
 		if_ret(1, set);
-	place = point_list(point);
-	while (place || set->map[point->y][point->x] != 'E')
+	copied = copied_map(set);
+	if (!copied)
 	{
-		point = place->content;
-		if (set->map[point->y][point->x - 1] != '1')
-			left_search(point, &place, &savepoint);
-		if (set->map[point->y - 1][point->x] != '1')
-			upper_search(point, &place, &savepoint);
-		if (set->map[point->y][point->x + 1] != '1')
-			right_search(point, &place, &savepoint);
-		if (set->map[point->y + 1][point->x] != '1')
-			down_search(point, &place, &savepoint);
-	}
-	if (place == NULL)
+		free_queue(queue);
 		if_ret(1, set);
-	lst_clear(place);
-	lst_clear(savepoint);
+	}
+	enqueue_point(queue, set->p_x, set->p_y);
+	copied[set->p_y][set->p_x] = '1';
+	found = func(set, queue, current, copied);
+	free_queue(queue);
+	free_visited_map(copied, set->y);
+	if (found != set->e + set->c)
+		if_ret(1, set);
 }
-/* 
-	계획
-	//1. 모든 'C'를 0xCC000000이상의 값으로 대치 및 목록 작성
-	2. 'E' 찾기
-	3. 갈곳 링크드리스트D의 0번 기준 상하좌우 조회(A)
-	4. A를 간 곳 링크드리스트(B) 및 'E', '1' 인지 아닌지 조회(C)
-	5. 모든 C를 D의 앞에 연결
 
-
- */
+// e랑 c분리
