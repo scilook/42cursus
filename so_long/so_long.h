@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:54:48 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/23 17:12:17 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/24 17:11:29 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ typedef struct s_set
 	void	*mlx;
 	void	*win;
 	char	**map;
-	size_t	x;
-	size_t	y;
 	size_t	p_x;
 	size_t	p_y;
+	int		x;
+	int		y;
 	int		c;
 	int		e;
 	int		p;
@@ -59,6 +59,7 @@ int		map_parse(t_set *set);
 void	lst_clear(t_list *lst);
 void	destroy_win(t_set *set);
 void	image_align(t_set *set);
+void	image_destroy(t_set *set);
 void	condition_check(t_set *set);
 void	if_ret(int bool, t_set *set);
 void	create_map(char *argv, t_set *set);

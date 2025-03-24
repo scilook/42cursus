@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 15:57:27 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/23 16:57:07 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/24 15:40:36 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_queue	*init_queue(void)
 	queue->size = 0;
 	return (queue);
 }
-
 
 void	enqueue_point(t_queue *queue, int x, int y)
 {

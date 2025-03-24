@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 15:02:56 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/23 13:39:34 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/24 17:12:39 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,3 @@ int	key_control_hook(int keycode, t_set *set)
 		mlx_loop_end(set->mlx);
 	return (0);
 }
-
-

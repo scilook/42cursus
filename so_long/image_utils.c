@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:06:43 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/23 13:48:35 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/24 17:20:28 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	if_ret(int bool, t_set *set)
 	{
 		write(1, "ERROR\n", 7);
 		destroy_win(set);
+		mlx_destroy_display(set->mlx);
+		free(set->mlx);
 		exit(0);
 	}
 }

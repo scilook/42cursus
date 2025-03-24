@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:55:50 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/23 12:41:02 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/24 17:12:24 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	create_map(char *argv, t_set *set)
 {
 	char	*line;
 	int		fd;
+	int		x;
+	int		y;
 
 	fd = open(argv, O_RDONLY);
 	line = read_line(fd);
@@ -110,4 +112,7 @@ void	create_map(char *argv, t_set *set)
 	valid_check(set);
 	edge_check(set);
 	condition_check(set);
+	mlx_get_screen_size(set->mlx, &x, &y);
+	if (x < set->x * 64 || y < set->y * 64)
+		if_ret(1, set);
 }
