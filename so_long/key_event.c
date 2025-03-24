@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 15:02:56 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/24 17:12:39 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/24 20:08:12 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,19 @@ void	key_down(int keycode, t_set *set)
 
 int	key_control_hook(int keycode, t_set *set)
 {
-	key_left(keycode, set);
-	key_up(keycode, set);
-	key_right(keycode, set);
-	key_down(keycode, set);
-	if (keycode == 65307 || set->e == 0)
+	static int	i;
+
+	if (keycode == 'a' || keycode == 'w' || keycode == 'd' || keycode == 's' \
+	|| keycode == 65361 || keycode == 65362 || keycode == 65363 || \
+	keycode == 65364)
+	{
+		printf("%d\n", ++i); //replace ft_printf
+		key_left(keycode, set);
+		key_up(keycode, set);
+		key_right(keycode, set);
+		key_down(keycode, set);
+	}
+	else if (keycode == 65307 || set->e == 0)
 		mlx_loop_end(set->mlx);
 	return (0);
 }
