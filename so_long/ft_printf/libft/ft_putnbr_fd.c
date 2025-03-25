@@ -1,41 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/25 07:51:44 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/04 14:58:33 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/12 15:54:38 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *s, ...)
+static unsigned int	decimal_count(int n)
 {
-	size_t	i;
-	size_t	cnt;
-	va_list	ap;
+	unsigned int	cnt;
 
-	if (s == NULL)
-		return (-1);
 	cnt = 0;
-	va_start(ap, s);
-	i = 0;
-	while (s[i] != '\0')
+	while (n != 0)
 	{
-		if (s[i] == '%' && ++i)
-		{
-			if (s[i] == '\0')
-				return (-1);
-			vaprintf(ap, s[i], &cnt);
-			i++;
-			continue ;
-		}
-		ft_putchar_fd(s[i++], 1);
 		cnt++;
+		n = n / 10;
 	}
-	va_end(ap);
 	return (cnt);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	long long int	cp;
+	size_t			digit;
+	char			nbr[11];
+
+	digit = decimal_count(n);
+	if (n == 0)
+		ft_putchar_fd('0', fd);
+	cp = n;
+	if (cp < 0)
+	{
+		ft_putchar_fd('-', fd);
+		cp = -cp;
+	}
+	nbr[digit] = '\0';
+	while (cp != 0)
+	{
+		nbr[--digit] = cp % 10 + '0';
+		cp /= 10;
+	}
+	ft_putstr_fd(nbr, fd);
 }

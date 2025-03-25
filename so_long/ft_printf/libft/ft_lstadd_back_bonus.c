@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/25 07:51:44 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/04 16:43:27 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/05 20:49:09 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *s, ...)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	size_t	i;
-	size_t	cnt;
-	va_list	ap;
-
-	if (s == NULL)
-		return (-1);
-	cnt = 0;
-	va_start(ap, s);
-	i = 0;
-	while (s[i] != '\0')
+	if (lst == NULL || new == NULL)
+		return ;
+	if (*lst == NULL)
 	{
-		if (s[i] == '%' && ++i)
-		{
-			if (s[i] == '\0')
-				return (-1);
-			vaprintf(ap, s[i], &cnt);
-			i++;
-			continue ;
-		}
-		ft_putchar_fd(s[i++], 1);
-		cnt++;
+		*lst = new;
+		return ;
 	}
-	va_end(ap);
-	return (cnt);
+	ft_lstlast(*lst)->next = new;
 }

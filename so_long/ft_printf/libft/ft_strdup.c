@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/25 07:51:44 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/02 10:40:43 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/11 13:10:41 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *s, ...)
+char	*ft_strdup(const char *s)
 {
+	char	*ptr;
 	size_t	i;
-	size_t	cnt;
-	va_list	ap;
 
-	if (s == NULL)
-		return (-1);
-	cnt = 0;
-	va_start(ap, s);
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (ptr == NULL)
+		return (NULL);
 	i = 0;
-	while (s[i] != '\0')
+	while (*(s + i) != '\0')
 	{
-		if (s[i] == '%' && ++i)
-		{
-			if (s[i] == '\0')
-				return (-1);
-			vaprintf(ap, s[i], &cnt);
-			i++;
-			continue ;
-		}
-		ft_putchar_fd(s[i++], 1);
-		cnt++;
+		ptr[i] = *((char *)s + i);
+		i++;
 	}
-	va_end(ap);
-	return (cnt);
+	ptr[i] = '\0';
+	return (ptr);
 }

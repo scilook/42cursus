@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 15:22:18 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/24 17:47:28 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/25 10:14:57 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv)
 	set.p = 0;
 	if (argc != 2 || argv_validation(argv[1]))
 	{
-		write(1, "ERROR\n", 7);
+		write(1, "ERROR\n", 6);
 		exit(0);
 	}
 	set.mlx = mlx_init();

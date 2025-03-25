@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 16:06:43 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/24 17:20:28 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/25 10:14:48 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	if_ret(int bool, t_set *set)
 {
 	if (bool)
 	{
-		write(1, "ERROR\n", 7);
+		write(1, "ERROR\n", 6);
 		destroy_win(set);
 		mlx_destroy_display(set->mlx);
 		free(set->mlx);

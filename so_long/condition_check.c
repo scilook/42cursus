@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:39:24 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/24 17:41:25 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/25 10:14:34 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ static size_t	**copied_map(t_set *set)
 static int	periodic_func(size_t i)
 {
 	if (i == 0)
-		return (-1);
+		return (0);
 	else if (i == 1)
-		return (0);
-	else if (i == 2)
-		return (1);
-	else if (i == 3)
-		return (0);
-	else if (i == 4)
 		return (-1);
+	else if (i == 2)
+		return (0);
+	else if (i == 3)
+		return (1);
+	else if (i == 4)
+		return (0);
 	return (0);
 }
 
@@ -120,6 +120,6 @@ void	condition_check(t_set *set)
 	while (var[2] < set->y)
 		free(copied[var[2]++]);
 	free(copied);
-	if (var[0] != set->e || var[1] != set->c)
+	if (var[0] < 1 || var[1] != set->c)
 		if_ret(1, set);
 }

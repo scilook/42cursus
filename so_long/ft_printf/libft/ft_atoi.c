@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/25 07:51:44 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/02 09:50:38 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/13 13:00:08 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *s, ...)
+int	ft_atoi(const char *s)
 {
 	size_t	i;
-	size_t	cnt;
-	va_list	ap;
+	int		result;
+	int		flag;
 
-	if (s == NULL)
-		return (-1);
-	cnt = 0;
-	va_start(ap, s);
 	i = 0;
-	while (s[i] != '\0')
+	result = 0;
+	flag = 1;
+	while (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
+		i++;
+	if (s[i] == '-')
 	{
-		if (s[i] == '%' && ++i)
-		{
-			if (s[i] == '\0')
-				return (-1);
-			vaprintf(ap, s[i], &cnt);
-			i++;
-			continue ;
-		}
-		ft_putchar_fd(s[i++], 1);
-		cnt++;
+		flag = -1;
+		i++;
 	}
-	va_end(ap);
-	return (cnt);
+	else if (s[i] == '+')
+		i++;
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		result = result * 10 + ((char)s[i] - '0');
+		i++;
+	}
+	return (flag * result);
 }

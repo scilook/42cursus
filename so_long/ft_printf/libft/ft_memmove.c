@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/25 07:51:44 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/01 20:01:04 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/06 12:08:30 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *s, ...)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t	i;
-	size_t	cnt;
-	va_list	ap;
+	size_t			i;
+	unsigned char	*dst;
 
-	if (s == NULL)
-		return (-1);
-	cnt = 0;
-	va_start(ap, s);
 	i = 0;
-	while (s[i] != '\0')
+	dst = (unsigned char *)dest;
+	if (dest - src < 0)
 	{
-		if (s[i] == '%' && ++i)
+		while (i < n)
 		{
-			if (s[i] == '\0')
-				return (-1);
-			vaprintf(ap, s[i], &cnt);
+			dst[i] = *(unsigned char *)(src + i);
 			i++;
-			continue ;
 		}
-		ft_putchar_fd(s[i++], 1);
-		cnt++;
 	}
-	va_end(ap);
-	return (cnt);
+	else
+	{
+		while (i < n)
+		{
+			i++;
+			dst[n - i] = *(unsigned char *)(src + n - i);
+		}
+	}
+	return (dest);
 }

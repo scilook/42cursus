@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:00:23 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/25 07:51:44 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/01 21:18:32 by hyeson            #+#    #+#             */
+/*   Updated: 2024/10/11 19:02:00 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf(const char *s, ...)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
-	size_t	cnt;
-	va_list	ap;
+	size_t	littlelen;
 
-	if (s == NULL)
-		return (-1);
-	cnt = 0;
-	va_start(ap, s);
+	littlelen = ft_strlen(little);
+	if (little[0] == '\0')
+		return ((char *)big);
 	i = 0;
-	while (s[i] != '\0')
+	while (big[i] != '\0' && i + littlelen <= len)
 	{
-		if (s[i] == '%' && ++i)
+		if (little[0] == big[i])
 		{
-			if (s[i] == '\0')
-				return (-1);
-			vaprintf(ap, s[i], &cnt);
-			i++;
-			continue ;
+			if (ft_strncmp(little, big + i, littlelen) == 0)
+				return ((char *)big + i);
 		}
-		ft_putchar_fd(s[i++], 1);
-		cnt++;
+		i++;
 	}
-	va_end(ap);
-	return (cnt);
+	return (NULL);
 }

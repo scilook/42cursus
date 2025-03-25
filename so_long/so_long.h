@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 15:54:48 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/24 20:01:22 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/25 08:08:05 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
-//# include "ft_printf/ft_printf.h"
-# include "libft/libft.h"
+# include "ft_printf/ft_printf.h"
 
 
 typedef struct s_point
