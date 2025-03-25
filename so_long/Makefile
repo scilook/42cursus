@@ -8,7 +8,7 @@ NAME = so_long
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFTPRINTF) make
+$(NAME): $(OBJS) $(LIBFTPRINTF)
 	$(CC) $(CF) $(OBJS) $(LIBFTPRINTF) -o $(NAME) $(MLXOPTIONS)
 
 %.o: %.c
