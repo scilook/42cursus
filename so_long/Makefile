@@ -17,7 +17,7 @@ $(NAME): $(OBJS) $(LIBFTPRINTF)
 $(LIBFTPRINTF):
 	make -C ft_printf
 
-make:
+mlx:
 	make -C minilibx-linux
 
 get_mlx:
@@ -31,7 +31,6 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	make -C minilibx-linux clean
 	make -C ft_printf fclean
 
 re: fclean all
