@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 14:39:24 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/25 10:14:34 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/28 11:58:05 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,6 @@ void	condition_check(t_set *set)
 	while (var[2] < set->y)
 		free(copied[var[2]++]);
 	free(copied);
-	if (var[0] < 1 || var[1] != set->c)
+	if (var[0] == 0 || var[1] != set->c)
 		if_ret(1, set);
 }

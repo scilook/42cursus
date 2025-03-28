@@ -6,14 +6,13 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:36:30 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/25 20:01:12 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/27 11:24:35 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//queue_a에 int argv넣기 과제: 이미 할당 된 큐에 error시 메모리 정리
-void	allogate_queue(char *argv[], t_queue *queue)
+void	allocate_queue(char *argv[], t_queue *queue)
 {
 	int		i;
 	int		j;
@@ -32,6 +31,7 @@ void	allogate_queue(char *argv[], t_queue *queue)
 			{
 				if (!ft_isdigit(nbr[j][k++]))
 				{
+					free_queue(queue);
 					ft_printf("Error\n");
 					exit(0);
 				}
@@ -41,20 +41,22 @@ void	allogate_queue(char *argv[], t_queue *queue)
 	}
 }
 
-void	issame(t_queue *queue)
-{
-
-
-}
-
-
+	// 같은 값 확인 >> 정렬시 파괴
+	// 목표 생성
+	// 자릿값 정렬을 통해 1. 크기 할당 및 2. push_swap 수행
 int	main(int argc, char *argv[])
 {
-	t_queue	*queue_a;
-	t_queue	*queue_b;
+	t_queue	*queue_a;  //0버킷 항상 dequeue후 어디 넣을지 판단 >> n개 원소 
+	t_queue	*queue_b;  //1버킷
 
 	queue_a = init_queue();
 	queue_b = init_queue();
-	allogate_queue(argv, queue_a);
-	issame(queue_a); // 같은 값 확인
+	allocate_queue(argv, queue_a);
+
+	int *a = dequeue_point(queue_a);
+	while (a)
+	{
+	ft_printf("%d\n", *a);
+	a = dequeue_point(queue_a);
+}
 }

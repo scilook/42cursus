@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:55:50 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/24 17:12:24 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/03/28 12:45:25 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static void	valid_check(t_set *set)
 void	create_map(char *argv, t_set *set)
 {
 	char	*line;
+	char	*tmp;
 	int		fd;
 	int		x;
 	int		y;
@@ -107,8 +108,15 @@ void	create_map(char *argv, t_set *set)
 	fd = open(argv, O_RDONLY);
 	line = read_line(fd);
 	close(fd);
+	tmp = ft_strtrim(line, "\n");
 	set->map = ft_split(line, '\n');
 	free(line);
+	if (ft_strnstr(tmp, "\n\n", ft_strlen(tmp)))
+	{
+		free(tmp);
+		if_ret(1, set);
+	}
+	free(tmp);
 	valid_check(set);
 	edge_check(set);
 	condition_check(set);
