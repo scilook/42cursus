@@ -1,18 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:36:30 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/31 17:27:12 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/04/03 17:58:02 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	validation_check(char *nbrj, t_queue *queue)
+void	free_queue(t_queue *queue)
+{
+	int	*point;
+
+	if (!queue)
+		return ;
+	while (queue->size > 0)
+	{
+		point = dequeue_point(queue);
+		if (point)
+			free(point);
+	}
+	free(queue);
+}
+
+void	if_ret(int bool, t_queue *queue)
+{
+	if (bool)
+	{
+		free_queue(queue);
+		ft_printf("Error\n");
+		exit(0);
+	}
+}
+
+static int	validation_check(char *nbrj)
 {
 	char	*tmp;
 	int		k;
@@ -22,25 +47,26 @@ static void	validation_check(char *nbrj, t_queue *queue)
 		k++;
 	while (nbrj[k] == '0')
 		k++;
-	if_ret(ft_strlen(nbrj + k) > 16, queue);
-	while (nbrj[k])
-		if_ret(!ft_isdigit(nbrj[k++]), queue);
-	tmp = ft_itoa(ft_atoi(nbrj));
-	if (!ft_strnstr(nbrj, tmp, ft_strlen(nbrj))) // -07 등을 어떻게 처리하나
+	if (ft_strlen(nbrj + k) > 16)
+		return (0);
+	tmp = ft_itoa(ft_atoi(nbrj + k));
+	if (nbrj[k] == '+' || nbrj[k] == '-' || !ft_strnstr(nbrj, tmp,
+			ft_strlen(nbrj)))
 	{
 		free(tmp);
-		free_queue(queue);
-		ft_printf("Error\n");
-		exit(0);
+		return (0);
 	}
 	free(tmp);
+	while (nbrj[k])
+		if (!ft_isdigit(nbrj[k++]))
+			return (0);
+	return (1);
 }
 
 static void	allocate_queue(char *argv[], t_queue *queue)
 {
 	int		i;
 	int		j;
-	int		k;
 	char	**nbr;
 
 	i = 1;
@@ -50,7 +76,14 @@ static void	allocate_queue(char *argv[], t_queue *queue)
 		j = 0;
 		while (nbr[j])
 		{
-			validation_check(nbr[j], queue);
+			if (!validation_check(nbr[j]))
+			{
+				free(nbr[j]);
+				free(nbr);
+				free_queue(queue);
+				ft_printf("Error\n");
+				exit(0);
+			}
 			enqueue_point(queue, ft_atoi(nbr[j]));
 			free(nbr[j]);
 			j++;
@@ -59,34 +92,25 @@ static void	allocate_queue(char *argv[], t_queue *queue)
 	}
 }
 
-//나중에 지워라
-void test_print(t_queue *queue)
-{
-	int *a = dequeue_point(queue);
-
-	while (a)
-	{
-		ft_printf("%d\n", *a);
-		free(a); //사용후 free
-		a = dequeue_point(queue);
-	}
-}
-
-
-	// 같은 값 확인 >> 유효성 검사
-	// 목표 생성
-	// 자릿값 정렬을 통해 1. 크기 할당 및 2. push_swap 수행
 int	main(int argc, char *argv[])
 {
 	t_queue	*queue0;
 	t_queue	*queue1;
+	int		k;
 
+	if (argc < 2)
+		return (0);
 	queue0 = init_queue();
-	queue1 = init_queue();
 	allocate_queue(argv, queue0);
-	rank_queue(queue0);
-	radix_sort(queue0, queue1);
-	queue_traversal(queue1, queue0, queue1, queue1->size);
+	k = rank_queue(queue0);
+	queue1 = init_queue();
+	if (k != queue0->size)
+	{
+		if (queue0->size > 6)
+			radix_sort(queue0, queue1);
+		else
+			under6_sort(queue0, queue1);
+	}
 	free_queue(queue0);
 	free_queue(queue1);
 }

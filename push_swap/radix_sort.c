@@ -6,13 +6,13 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 16:48:17 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/31 17:26:00 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/04/03 17:53:35 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	queue_traversal(t_queue *queue, t_queue *queue0, \
+static void	queue_traversal(t_queue *queue, t_queue *queue0, \
 t_queue *queue1, int size)
 {
 	int	*tmp;
@@ -23,10 +23,10 @@ t_queue *queue1, int size)
 		if (*tmp % 2)
 		{
 			enqueue_point(queue1, *tmp >> 1);
-			if (queue == queue0)
-				ft_printf("pb\nrb\n");
-			else
+			if (queue == queue1)
 				ft_printf("rb\n");
+			else
+				ft_printf("pb\nrb\n");
 		}
 		else
 		{
@@ -39,7 +39,6 @@ t_queue *queue1, int size)
 		free(tmp);
 	}
 }
-
 
 static void	stage_queue(t_queue *queue0, t_queue *queue1)
 {
@@ -61,4 +60,5 @@ void	radix_sort(t_queue *queue0, t_queue *queue1)
 		stage_queue(queue0, queue1);
 		size = size >> 1;
 	}
+	queue_traversal(queue1, queue0, queue1, queue1->size);
 }

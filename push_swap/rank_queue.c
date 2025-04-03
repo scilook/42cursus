@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:12:50 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/31 17:30:46 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/04/03 17:52:55 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ft_sort_int_tab(int *tab, int size)
 	}
 }
 
-void	free_data(int **contents, int *tab, int size)
+static int	free_data(int **contents, int *tab, int size)
 {
 	int	i;
 
@@ -44,9 +44,10 @@ void	free_data(int **contents, int *tab, int size)
 		free(contents[i++]);
 	free(contents);
 	free(tab);
+	return (1);
 }
 
-int	sequence_check(int **contents, int *tab, int size, t_queue *queue)
+static int	sequence_check(int **contents, int *tab, int size, t_queue *queue)
 {
 	int	var[3];
 
@@ -54,13 +55,8 @@ int	sequence_check(int **contents, int *tab, int size, t_queue *queue)
 	var[2] = 0;
 	while (var[0] < size)
 	{
-		if (var[0] + 1 != size && tab[var[0]] == tab[var[0] + 1])
-		{
-			ft_printf("Error\n");
-			free_data(contents, tab, size);
-			free_queue(queue);
-			exit(0);
-		}
+		if_ret(var[0] + 1 < size && tab[var[0]] == tab[var[0] + 1] \
+		&& free_data(contents, tab, size), queue);
 		var[1] = 0;
 		while (var[1] < size)
 		{
@@ -78,8 +74,7 @@ int	sequence_check(int **contents, int *tab, int size, t_queue *queue)
 	return (var[2]);
 }
 
-
-void	rank_queue(t_queue *queue)
+int	rank_queue(t_queue *queue)
 {
 	int	**contents;
 	int	*tab;
@@ -91,16 +86,12 @@ void	rank_queue(t_queue *queue)
 	size = 0;
 	while (queue->size)
 	{
-		contents[size] = dequeue_point(queue); //우변 먼저 실행 해서 좌변의 size가 1 작아짐
+		contents[size] = dequeue_point(queue);
 		tab[size] = *contents[size];
 		size++;
 	}
 	ft_sort_int_tab(tab, size);
 	k = sequence_check(contents, tab, size, queue);
 	free_data(contents, tab, size);
-	if (k == size)
-	{
-		free_queue(queue);
-		exit(0);
-	}
+	return (k);
 }

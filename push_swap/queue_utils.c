@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 15:57:27 by hyeson            #+#    #+#             */
-/*   Updated: 2025/03/30 15:10:03 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/04/03 17:02:27 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,40 @@ void	enqueue_point(t_queue *queue, int x)
 	queue->size++;
 }
 
+void	enqueue_point_head(t_queue *queue, int x)
+{
+	int		*point;
+	t_list	*node;
+
+	point = (int *)malloc(sizeof(int));
+	if (!point)
+		return ;
+	*point = x;
+	node = ft_lstnew(point);
+	if (!node)
+	{
+		free(point);
+		return ;
+	}
+	if (queue->rear == NULL)
+	{
+		queue->front = node;
+		queue->rear = node;
+	}
+	else
+	{
+		node->next = queue->front;
+		queue->front = node;
+	}
+	queue->size++;
+}
+
 int	*dequeue_point(t_queue *queue)
 {
 	t_list	*tmp;
 	int		*point;
 
-	if (!queue || !queue->front)
+	if (queue == NULL || queue->front == NULL)
 		return (NULL);
 	tmp = queue->front;
 	point = tmp->content;
@@ -70,27 +98,21 @@ int	*dequeue_point(t_queue *queue)
 	return (point);
 }
 
-void	free_queue(t_queue *queue)
+int	*dequeue_point_rear(t_queue *queue)
 {
-	int	*point;
+	t_list	*tmp;
+	t_list	*tmp2;
+	int		*point;
 
-	if (!queue)
-		return ;
-	while (queue->size > 0)
-	{
-		point = dequeue_point(queue);
-		if (point)
-			free(point);
-	}
-	free(queue);
-}
-
-void	if_ret(int bool, t_queue *queue)
-{
-	if (bool)
-	{
-		free_queue(queue);
-		ft_printf("Error\n");
-		exit(0);
-	}
+	if (!queue || !queue->front)
+		return (NULL);
+	tmp = queue->rear;
+	tmp2 = queue->front;
+	point = tmp->content;
+	while (tmp != tmp2->next)
+		tmp2 = tmp2->next;
+	queue->rear = tmp2;
+	free(tmp);
+	queue->size--;
+	return (point);
 }
