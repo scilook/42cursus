@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 15:57:27 by hyeson            #+#    #+#             */
-/*   Updated: 2025/04/03 17:02:27 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/04/03 21:36:07 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	*dequeue_point_rear(t_queue *queue)
 	while (tmp != tmp2->next)
 		tmp2 = tmp2->next;
 	queue->rear = tmp2;
+	queue->rear->next = NULL;
 	free(tmp);
 	queue->size--;
 	return (point);

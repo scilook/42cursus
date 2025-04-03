@@ -1,5 +1,5 @@
 CC = cc
-CF = -Wall -Werror -Wextra # -g -fsanitize=address
+CF = -Wall -Werror -Wextra
 SRCS = push_swap.c queue_utils.c rank_queue.c radix_sort.c under6_sort.c
 LIBFTPRINTF = ft_printf/libftprintf.a
 OBJS = $(SRCS:.c=.o)
