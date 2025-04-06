@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 16:34:26 by hyeson            #+#    #+#             */
-/*   Updated: 2025/04/03 17:55:17 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/04/04 18:47:57 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,22 @@
 void	under3_sort_a(t_queue *queue)
 {
 	int	*tmp;
+	int	*tmp2;
 
 	while (queue->size)
 	{
-		if (*(int *)queue->front->content == 1 && \
-		*(int *)queue->rear->content == queue->size)
+		if (*(int *)queue->front->content == 1
+			&& *(int *)queue->rear->content == queue->size)
 			return ;
 		tmp = dequeue_point(queue);
 		if (*tmp == 2 && *(int *)queue->rear->content == 3)
 		{
-			ft_printf("sa\n");
-			enqueue_point(queue, *tmp);
+			tmp2 = dequeue_point(queue);
+			enqueue_point_head(queue, *tmp);
+			enqueue_point_head(queue, *tmp2);
 			free(tmp);
+			free(tmp2);
+			ft_printf("sa\n");
 			return ;
 		}
 		ft_printf("ra\n");
@@ -38,18 +42,22 @@ void	under3_sort_a(t_queue *queue)
 void	under3_sort_b(t_queue *queue)
 {
 	int	*tmp;
+	int	*tmp2;
 
 	while (queue->size)
 	{
-		if (*(int *)queue->front->content == 1 && \
-		*(int *)queue->rear->content == queue->size)
+		if (*(int *)queue->front->content == 1
+			&& *(int *)queue->rear->content == queue->size)
 			return ;
 		tmp = dequeue_point_rear(queue);
 		if (*tmp == 2 && *(int *)queue->rear->content == 3)
 		{
-			ft_printf("sb\n");
+			tmp2 = dequeue_point(queue);
 			enqueue_point_head(queue, *tmp);
+			enqueue_point_head(queue, *tmp2);
 			free(tmp);
+			free(tmp2);
+			ft_printf("sb\n");
 			return ;
 		}
 		ft_printf("rb\n");

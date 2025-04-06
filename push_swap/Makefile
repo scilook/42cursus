@@ -1,6 +1,6 @@
 CC = cc
 CF = -Wall -Werror -Wextra
-SRCS = push_swap.c queue_utils.c rank_queue.c radix_sort.c under6_sort.c
+SRCS = push_swap.c queue_utils.c rank_queue.c swap_utils.c radix_sort2.c under6_sort.c
 LIBFTPRINTF = ft_printf/libftprintf.a
 OBJS = $(SRCS:.c=.o)
 NAME = push_swap

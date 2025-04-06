@@ -6,11 +6,11 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:12:50 by hyeson            #+#    #+#             */
-/*   Updated: 2025/04/03 17:52:55 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/04/04 15:25:16 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"push_swap.h"
+#include "push_swap.h"
 
 static void	ft_sort_int_tab(int *tab, int size)
 {
@@ -55,8 +55,10 @@ static int	sequence_check(int **contents, int *tab, int size, t_queue *queue)
 	var[2] = 0;
 	while (var[0] < size)
 	{
-		if_ret(var[0] + 1 < size && tab[var[0]] == tab[var[0] + 1] \
-		&& free_data(contents, tab, size), queue);
+		if (var[0] + 1 < size && tab[var[0]] == tab[var[0] + 1])
+			ft_printf("Error\n");
+		if (var[0] + 1 < size && tab[var[0]] == tab[var[0] + 1])
+			return (size);
 		var[1] = 0;
 		while (var[1] < size)
 		{

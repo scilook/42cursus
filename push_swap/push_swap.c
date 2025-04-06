@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:36:30 by hyeson            #+#    #+#             */
-/*   Updated: 2025/04/03 17:58:02 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/04/04 15:29:45 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,6 @@ void	free_queue(t_queue *queue)
 			free(point);
 	}
 	free(queue);
-}
-
-void	if_ret(int bool, t_queue *queue)
-{
-	if (bool)
-	{
-		free_queue(queue);
-		ft_printf("Error\n");
-		exit(0);
-	}
 }
 
 static int	validation_check(char *nbrj)
