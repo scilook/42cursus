@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_utils.c                                       :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/04 15:15:44 by hyeson            #+#    #+#             */
-/*   Updated: 2025/04/06 14:22:25 by hyeson           ###   ########.fr       */
+/*   Created: 2025/05/17 04:07:44 by hyeson            #+#    #+#             */
+/*   Updated: 2025/05/17 18:14:56 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "minishell.h"
 
-void	ft_swap(int *a, int *b)
+void	*ft_realloc(void *ptr, size_t size)
 {
-	int	tmp;
+	void	*tmp;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	tmp = malloc(size);
+	ft_bzero(tmp, size);
+	ft_memcpy(tmp, ptr, size);
+	free(ptr);
+	return (tmp);
 }

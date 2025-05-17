@@ -8,7 +8,7 @@ NAME = push_swap
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFTPRINTF)
-	$(CC) $(CF) $(OBJS) $(LIBFTPRINTF) -o $(NAME) $(MLXOPTIONS)
+	$(CC) $(CF) $(OBJS) $(LIBFTPRINTF) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CF) -c $< -o $@

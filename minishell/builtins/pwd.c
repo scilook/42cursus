@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_utils.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/04 15:15:44 by hyeson            #+#    #+#             */
-/*   Updated: 2025/04/06 14:22:25 by hyeson           ###   ########.fr       */
+/*   Created: 2025/05/12 09:34:52 by hyeson            #+#    #+#             */
+/*   Updated: 2025/05/14 09:14:22 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "../minishell.h"
 
-void	ft_swap(int *a, int *b)
+int	main(void)
 {
-	int	tmp;
+	char	*buf;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	buf = getcwd(NULL, 0);
+	ft_putstr_fd(buf, 1);
+	write(1, "\n", 1);
+	free(buf);
+	return (0);
 }

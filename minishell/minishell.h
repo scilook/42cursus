@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap_utils.c                                       :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/04 15:15:44 by hyeson            #+#    #+#             */
-/*   Updated: 2025/04/06 14:22:25 by hyeson           ###   ########.fr       */
+/*   Created: 2025/05/12 08:30:31 by hyeson            #+#    #+#             */
+/*   Updated: 2025/05/17 04:14:44 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-void	ft_swap(int *a, int *b)
-{
-	int	tmp;
+# include "ft_printf/ft_printf.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
+void	*ft_realloc(void *ptr, size_t size);
+
+#endif

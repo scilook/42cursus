@@ -1,0 +1,7 @@
+*/libft
+*/ft_printf
+*/*.o
+/*.c
+*.o
+*/test*
+a.out

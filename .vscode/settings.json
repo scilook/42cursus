@@ -1,0 +1,14 @@
+{
+	"files.associations": {
+		"pipex.h": "c",
+		"pipex_bonus.h": "c",
+		"fcntl.h": "c",
+		"libft.h": "c",
+		"mlx_int.h": "c",
+		"ft_printf.h": "c",
+		"push_swap.h": "c",
+		"cmath": "cpp"
+	},
+	"commentTranslate.source": "Copilot",
+	"commentTranslate.targetLanguage": "ko"
+}
