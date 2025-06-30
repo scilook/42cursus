@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:15:52 by hyeson            #+#    #+#             */
-/*   Updated: 2025/05/07 17:57:30 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/06/30 20:44:59 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,27 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-typedef struct	s_time
+typedef struct s_units
 {
-	suseconds_t		to_die;
-	suseconds_t		to_eat;
-	suseconds_t		to_sleep;
-}	t_time;
+	int				death;
+	int				must_eat;
+	size_t			size;
+	suseconds_t		time_to_die;
+	suseconds_t		time_to_eat;
+	suseconds_t		time_to_sleep;
+}	t_units;
+
 
 typedef struct	s_philo
 {
 	size_t			num;
+	size_t			cnt;
 	suseconds_t		dur;
-	pthread_t		*thr;
-	pthread_mutex_t	*mutex;
-	t_time			*time;
+	pthread_t		thr;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	*r_fork;
+	t_units			*units;
 }	t_philo;
-
-typedef struct	s_set
-{
-	t_philo	*philo;
-	t_time	*time;
-}	t_set;
 
 int	ft_atoi(const char *s);
 void	*ft_calloc(size_t nmemb, size_t size);

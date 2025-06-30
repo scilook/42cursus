@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*   By: geonhwki <geonhwki@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:02:49 by hyeson            #+#    #+#             */
-/*   Updated: 2025/05/28 12:25:46 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/01 16:09:52 by geonhwki          #+#    #+#             */
+/*   Updated: 2024/10/05 19:07:46 by geonhwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "libft/libft.h"
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*ptr;
 
-void	vaprintf(va_list ap, const char c, size_t *cnt);
-int		ft_printf(const char *s, ...)__attribute__((format(printf, 1, 2)));
-
-#endif /* FT_PRINTF_H */
+	ptr = (unsigned char *)s;
+	while (n--)
+		*ptr++ = c;
+	return (s);
+}

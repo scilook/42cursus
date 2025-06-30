@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*   By: geonhwki <geonhwki@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:02:49 by hyeson            #+#    #+#             */
-/*   Updated: 2025/05/28 12:25:46 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/02 15:56:48 by geonhwki          #+#    #+#             */
+/*   Updated: 2024/10/02 15:57:37 by geonhwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "libft/libft.h"
+int	ft_lstsize(t_list *lst)
+{
+	int	size;
 
-void	vaprintf(va_list ap, const char c, size_t *cnt);
-int		ft_printf(const char *s, ...)__attribute__((format(printf, 1, 2)));
-
-#endif /* FT_PRINTF_H */
+	size = 0;
+	while (lst != NULL)
+	{
+		++size;
+		lst = lst->next;
+	}
+	return (size);
+}

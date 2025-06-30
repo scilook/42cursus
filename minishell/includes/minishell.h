@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:02:49 by hyeson            #+#    #+#             */
-/*   Updated: 2025/05/28 12:25:46 by hyeson           ###   ########.fr       */
+/*   Created: 2025/04/10 16:29:09 by geonhwki          #+#    #+#             */
+/*   Updated: 2025/05/28 13:34:05 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-# include <stdarg.h>
-# include "libft/libft.h"
+# include "ft_printf.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <signal.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
-void	vaprintf(va_list ap, const char c, size_t *cnt);
-int		ft_printf(const char *s, ...)__attribute__((format(printf, 1, 2)));
+typedef enum {
+    FALSE,
+    TRUE
+} t_bool ;
 
-#endif /* FT_PRINTF_H */
+char	*seek_path(char *cmd);
+
+#endif /* MINISHELL_H */

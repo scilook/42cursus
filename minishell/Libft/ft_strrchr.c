@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*   By: geonhwki <geonhwki@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:02:49 by hyeson            #+#    #+#             */
-/*   Updated: 2025/05/28 12:25:46 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/01 17:16:11 by geonhwki          #+#    #+#             */
+/*   Updated: 2024/10/09 09:33:00 by geonhwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include "libft/libft.h"
+char	*ft_strrchr(const char *s, int c)
+{
+	char	*ret;
 
-void	vaprintf(va_list ap, const char c, size_t *cnt);
-int		ft_printf(const char *s, ...)__attribute__((format(printf, 1, 2)));
-
-#endif /* FT_PRINTF_H */
+	ret = NULL;
+	while (*s != '\0')
+	{
+		if (*s == (char)c)
+			ret = (char *)s;
+		++s;
+	}
+	if (c == '\0')
+		return ((char *)(s));
+	return (ret);
+}

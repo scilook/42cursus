@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*   By: geonhwki <geonhwki@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/17 04:07:44 by hyeson            #+#    #+#             */
-/*   Updated: 2025/05/17 18:14:56 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/01 17:09:23 by geonhwki          #+#    #+#             */
+/*   Updated: 2024/10/05 19:07:31 by geonhwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	*ft_realloc(void *ptr, size_t size)
+int	ft_toupper(int c)
 {
-	void	*tmp;
-
-	tmp = malloc(size);
-	ft_bzero(tmp, size);
-	ft_memcpy(tmp, ptr, size);
-	free(ptr);
-	return (tmp);
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	return (c);
 }

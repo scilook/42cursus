@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*   By: geonhwki <geonhwki@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/11 16:02:49 by hyeson            #+#    #+#             */
-/*   Updated: 2025/05/28 12:25:46 by hyeson           ###   ########.fr       */
+/*   Created: 2024/10/05 18:56:00 by geonhwki          #+#    #+#             */
+/*   Updated: 2024/10/16 22:36:39 by geonhwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# include "libft.h"
 # include <stdarg.h>
-# include "libft/libft.h"
 
-void	vaprintf(va_list ap, const char c, size_t *cnt);
-int		ft_printf(const char *s, ...)__attribute__((format(printf, 1, 2)));
+int		ft_printf(const char *str, ...);
+void	ft_putunbr_base(unsigned int nb, const char *base, int *out_length);
+void	ft_putulnbr_base(size_t nb, const char *base, int *out_length);
+void	ft_putnbr(int nb, int *out_length);
+void	ft_putptr(size_t nb, int *out_length);
 
 #endif /* FT_PRINTF_H */

@@ -7,7 +7,14 @@
 		"mlx_int.h": "c",
 		"ft_printf.h": "c",
 		"push_swap.h": "c",
-		"cmath": "cpp"
+		"cmath": "cpp",
+		"minishell.h": "c",
+		"array": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"ranges": "c",
+		"span": "c",
+		"utility": "c"
 	},
 	"commentTranslate.source": "Copilot",
 	"commentTranslate.targetLanguage": "ko"

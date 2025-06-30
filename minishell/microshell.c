@@ -1,12 +1,5 @@
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
-#include <readline/readline.h>
+#include "minishell.h"
+
 
 void	exec(int i, int j, char **argv, char **envp)
 {
@@ -18,23 +11,42 @@ void	exec(int i, int j, char **argv, char **envp)
 	while (k < i - j)
 	{
 		args[k] = argv[j + k];
+		printf("%s\n", args[k]);
 		k++;
 	}
-	execve(argv[j], args, envp);
+	execve(seek_path(argv[j]), args, envp);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **av, char **envp)
 {
 	int i;
 	int j;
 	int cnt;
+	int *fd;
 	pid_t pid;
-	int fd[100];
 
-	i = 1; // minishell에서는 0
+	char *line = readline("sh> ");
+	char **argv = ft_split(line, ' ');
+	add_history(line);
+	free(line);
+
+	if (!strncmp(argv[0], "exit", 5))
+	{
+		if (argv[1])
+			exit(atoi(argv[1]));
+		else
+			exit(0);
+	}
+	cnt = 1;
+	i = 0;
+	while(argv[i])
+		if (!strcmp(argv[i++], "|"))
+			cnt++;
+	fd = malloc(sizeof(int) * cnt);
+	i = 0; // minishell에서는 0
 	j = 0;
 	cnt = 0;
-	while (i < argc)
+	while (argv[i])
 	{
 		wait(0);
 		if (strncmp(argv[i], ";", 2) == 0)
@@ -68,6 +80,29 @@ int	main(int argc, char **argv, char **envp)
 		}
 		i++;
 	}
-	if (strncmp(argv[i - 1], ";", 2))
-		execve(argv[j + 1], &argv[j + 1], envp);
+	free(fd);
+	//if (strncmp(argv[i - 1], ";", 2))
+		execve(seek_path(argv[j + 1]), &argv[j + 1], envp);
+	return 0;
 }
+
+void ft_sigint(void)
+{
+	
+}
+
+/* int	main(int argc, char **argv, char **envp)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("sh> ");
+		signal(SIGINT, exit(130));
+		signal(SIGKILL, exit(0));
+		signal(SIGQUIT, exit(131));
+		semantic_express(line, envp);
+		add_history(line);
+		free(line);
+	}
+} */

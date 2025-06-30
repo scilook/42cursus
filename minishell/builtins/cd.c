@@ -6,7 +6,7 @@
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 09:23:20 by hyeson            #+#    #+#             */
-/*   Updated: 2025/05/15 20:20:30 by hyeson           ###   ########.fr       */
+/*   Updated: 2025/05/23 12:02:47 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	cd_test(void)
 // fork()하지 않고 작업을 수행
 int	main(int argc, char **argv)
 {
+	if (argc == 1)
+	{
+		chdir(getenv("HOME"));
+		cd_test(); // 지우세요
+		return (0);
+	}
 	if (argc > 2)
 	{
 		write(2, "bash: cd: too many arguments\n", 29);
