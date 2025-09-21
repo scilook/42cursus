@@ -6,18 +6,18 @@
 /*   By: geonhwki <geonhwki@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:38:04 by geonhwki          #+#    #+#             */
-/*   Updated: 2024/11/11 16:04:05 by geonhwki         ###   ########.fr       */
+/*   Updated: 2025/09/16 23:02:23 by geonhwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdbool.h>
 
-static int	wordlen(char *str, char c);
-static char	*worddup(char *src, char c);
-static int	count_words(char *str, char c);
+static int	wordlen(char *str, const char *charset);
+static char	*worddup(char *src, const char *charset);
+static int	count_words(char *str, const char *charset);
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, const char *charset)
 {
 	char	*str;
 	char	**result;
@@ -26,18 +26,18 @@ char	**ft_split(char const *s, char c)
 	int		count;
 
 	str = (char *)(s);
-	words_count = count_words(str, c);
+	words_count = count_words(str, charset);
 	result = malloc((words_count + 1) * sizeof(char *));
 	is_word_start = true;
 	count = 0;
 	while (*str != '\0')
 	{
-		if (*str == c)
+		if (ft_strchr(charset, *str) != NULL)
 			is_word_start = true;
 		else
 		{
 			if (is_word_start)
-				result[count++] = worddup(str, c);
+				result[count++] = worddup(str, charset);
 			is_word_start = false;
 		}
 		++str;
@@ -46,32 +46,32 @@ char	**ft_split(char const *s, char c)
 	return (result);
 }
 
-static char	*worddup(char *src, char c)
+static char	*worddup(char *src, const char *charset)
 {
 	char	*dest;
 	char	*ptr;
 
-	dest = malloc(wordlen(src, c) + 1);
+	dest = malloc(wordlen(src, charset) + 1);
 	if (dest == NULL)
 		return (NULL);
 	ptr = dest;
-	while (*src != '\0' && *src != c)
+	while (*src != '\0' && ft_strchr(charset, *src) == NULL)
 		*ptr++ = *src++;
 	*ptr = '\0';
 	return (dest);
 }
 
-static int	wordlen(char *str, char c)
+static int	wordlen(char *str, const char *charset)
 {
 	char	*s;
 
 	s = str;
-	while (*str != '\0' && *str != c)
+	while (*str != '\0' && ft_strchr(charset, *str) == NULL)
 		++str;
 	return (str - s);
 }
 
-static int	count_words(char *str, char c)
+static int	count_words(char *str, const char *charset)
 {
 	bool	is_word_start;
 	int		count;
@@ -80,7 +80,7 @@ static int	count_words(char *str, char c)
 	count = 0;
 	while (*str != '\0')
 	{
-		if (*str == c)
+		if (ft_strchr(charset, *str) != NULL)
 			is_word_start = true;
 		else
 		{

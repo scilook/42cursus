@@ -6,7 +6,7 @@
 /*   By: geonhwki <geonhwki@student.42gyeongsan.kr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 15:52:43 by geonhwki          #+#    #+#             */
-/*   Updated: 2024/11/11 16:04:05 by geonhwki         ###   ########.fr       */
+/*   Updated: 2025/09/16 23:02:26 by geonhwki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void				*ft_calloc(size_t nmemb, size_t size);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
-char				**ft_split(char const *s, char c);
+char				**ft_split(char const *s, const char *charset);
 char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
@@ -69,5 +69,10 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
-
+char				*ft_strcpy(char *dest, const char *src);
+char				*ft_strcat(char *dest, const char *src);
+char				**ft_split_by_str(char *str, char *delim);
+char				*ft_str_replace(char *str, char *from, char *to);
+char				*ft_str_replace_range(char *str, char *start, char *end,
+						char *replacement);
 #endif /* LIBFT_H */

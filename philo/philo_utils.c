@@ -5,12 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/18 14:23:04 by hyeson            #+#    #+#             */
-/*   Updated: 2025/04/29 16:57:20 by hyeson           ###   ########.fr       */
+/*   Created: 2025/08/11 17:23:36 by hyeson            #+#    #+#             */
+/*   Updated: 2025/09/20 15:16:29 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+suseconds_t	get_now(void)
+{
+	struct timeval	tv;
+	suseconds_t		ts;
+
+	gettimeofday(&tv, NULL);
+	ts = tv.tv_sec * 1000 * 1000 + tv.tv_usec;
+	return (ts);
+}
 
 int	ft_atoi(const char *s)
 {
@@ -38,17 +48,26 @@ int	ft_atoi(const char *s)
 	return (flag * result);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	memory_clean(t_philo **philos, t_units *units)
 {
-	void	*ptr;
+	size_t	i;
 
-	if (nmemb == 0 || size == 0)
-		return (malloc(0));
-	if ((nmemb * size) / nmemb != size)
-		return (NULL);
-	ptr = malloc(nmemb * size);
-	if (ptr == NULL)
-		return (NULL);
-	memset(ptr, 0,nmemb * size);
-	return (ptr);
+	pthread_mutex_destroy(units->cnt_lock);
+	pthread_mutex_destroy(units->start_lock);
+	pthread_mutex_destroy(units->print_lock);
+	pthread_mutex_destroy(units->activate_lock);
+	free(units->cnt_lock);
+	free(units->start_lock);
+	free(units->print_lock);
+	free(units->activate_lock);
+	i = 0;
+	while (i < units->size)
+	{
+		pthread_mutex_destroy(philos[i]->l_fork);
+		free(philos[i]->l_fork);
+		free(philos[i]);
+		i++;
+	}
+	free(philos);
+	free(units);
 }

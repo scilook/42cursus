@@ -5,134 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeson <hyeson@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/14 12:18:19 by hyeson            #+#    #+#             */
-/*   Updated: 2025/06/30 20:45:08 by hyeson           ###   ########.fr       */
+/*   Created: 2025/08/05 19:24:36 by hyeson            #+#    #+#             */
+/*   Updated: 2025/09/21 11:49:23 by hyeson           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	thinking_time(t_philo *philo, suseconds_t start)
+t_units	*get_units(int argc, char **argv, t_units *units)
 {
-	struct timeval	tv;
-	suseconds_t		duration;
-	size_t			catch;
-
-	catch = 0;
-	duration = 0;
-	while (duration < philo->units->time_to_die && !philo->units->death)
-	{
-		if (!pthread_mutex_lock(philo->fork))
-		{
-			gettimeofday(&tv, NULL);
-			duration = tv.tv_sec * 1000 * 1000 + tv.tv_usec - start;
-			printf("%ld %ld has taken a fork\n", duration / 1000, philo->num);
-			catch++;
-		}
-		if (!pthread_mutex_lock(philo->r_fork))
-		{
-			gettimeofday(&tv, NULL);
-			duration = tv.tv_sec * 1000 * 1000 + tv.tv_usec - start;
-			printf("%ld %ld has taken a fork\n", duration / 1000, philo->num);
-			catch++;
-		}
-		if (catch == 2)
-		{
-			gettimeofday(&tv, NULL);
-			duration = tv.tv_sec * 1000 * 1000 + tv.tv_usec - start;
-			printf("%ld %ld is thinking\n", duration / 1000, philo->num);
-			return (0);
-		}
-	}
-	return (1);
-}
-
-void	eating_time(t_philo *philo, suseconds_t start)
-{
-	struct timeval	tv;
-	suseconds_t		duration;
-
-	usleep(philo->units->time_to_eat);
-	gettimeofday(&tv, NULL);
-	duration = tv.tv_sec * 1000 * 1000 + tv.tv_usec - start;
-	printf("%ld %ld is eating\n", duration / 1000, philo->num);
-	pthread_mutex_unlock(philo->fork);
-	pthread_mutex_unlock(philo->r_fork);
-}
-
-void	sleeping_time(t_philo *philo, suseconds_t start)
-{
-	struct timeval	tv;
-	suseconds_t		duration;
-
-	if (philo->units->time_to_sleep < philo->units->time_to_die)
-	usleep(philo->units->time_to_sleep);
-	else
-	{
-		usleep(philo->units->time_to_die);
-		return ;
-	}
-	gettimeofday(&tv, NULL);
-	duration = tv.tv_sec * 1000 * 1000 + tv.tv_usec - start;
-	printf("%ld %ld is sleeping\n", duration / 1000, philo->num);
-}
-
-/* static void	*monitoring(void *arg)
-{
-	size_t	i;
-	t_philo	**philos;
-
-	philos = arg;
-	i = 0;
-	while(i < philos[i]->units->size)
-	{
-		pthread_detach(philos[i]->thr);
-		i++;
-	}
-	if (philos[i]->units->death)
-	everyone_is_death(philos);
-	return (philos);
-} */
-
-void	*thr_start(void *arg)
-{
-	t_philo			*philo;
-	suseconds_t		start;
-	struct timeval	tv;
-	struct timeval	tv2;
-	
-	philo = (t_philo *)arg;
-	gettimeofday(&tv, NULL);
-	start = tv.tv_sec * 1000 * 1000 + tv.tv_usec;
-	philo->dur = 0;
-	while (philo->dur < philo->units->time_to_die && !philo->units->death)
-	{	
-		if (thinking_time(philo, start))
-			break ;
-		eating_time(philo, start);
-		gettimeofday(&tv, NULL);
-		sleeping_time(philo, start);
-		gettimeofday(&tv2, NULL);
-		philo->dur = (tv2.tv_sec - tv.tv_sec) * 1000 * 1000 \
-		+ (tv2.tv_usec - tv.tv_usec);
-	}
-	philo->units->death = 1;
-	printf("%ld is died\n", philo->num);
-	return (philo);
-}
-
-t_units	*get_units(int argc, char **argv)
-{
-	t_units	*units;
-
-	units = (t_units *)malloc(sizeof(t_units));
+	units->cnt_lock = malloc(sizeof(pthread_mutex_t));
+	units->start_lock = malloc(sizeof(pthread_mutex_t));
+	units->print_lock = malloc(sizeof(pthread_mutex_t));
+	units->activate_lock = malloc(sizeof(pthread_mutex_t));
 	units->size = ft_atoi(argv[1]);
+	units->activate = 1;
+	units->init_time = 0;
 	units->time_to_die = ft_atoi(argv[2]) * 1000;
 	units->time_to_eat = ft_atoi(argv[3]) * 1000;
 	units->time_to_sleep = ft_atoi(argv[4]) * 1000;
+	pthread_mutex_init(units->cnt_lock, NULL);
+	pthread_mutex_init(units->start_lock, NULL);
+	pthread_mutex_init(units->print_lock, NULL);
+	pthread_mutex_init(units->activate_lock, NULL);
 	if (argc == 6)
 		units->must_eat = ft_atoi(argv[5]);
-	units->death = 0;
+	else
+		units->must_eat = -1;
 	return (units);
 }
 
@@ -144,10 +43,12 @@ t_philo	**init_philos(t_philo **philos, t_units *units)
 	while (i < units->size)
 	{
 		philos[i] = malloc(sizeof(t_philo));
-		philos[i]->fork = malloc(sizeof(pthread_mutex_t));
-		philos[i]->r_fork = malloc(sizeof(pthread_mutex_t));
-		philos[i]->units = malloc(sizeof(t_units));
-		pthread_mutex_init(philos[i]->fork, NULL);
+		philos[i]->l_fork = malloc(sizeof(pthread_mutex_t));
+		pthread_mutex_init(philos[i]->l_fork, NULL);
+		philos[i]->cnt = 0;
+		philos[i]->checked = 0;
+		philos[i]->start_time = 0;
+		philos[i]->dur = 0;
 		philos[i]->num = i + 1;
 		philos[i]->units = units;
 		i++;
@@ -155,37 +56,75 @@ t_philo	**init_philos(t_philo **philos, t_units *units)
 	i = 0;
 	while (i < units->size)
 	{
-		philos[i]->r_fork = philos[(i + 1) % units->size]->fork;
+		philos[i]->r_fork = philos[(i + 1) % units->size]->l_fork;
 		i++;
 	}
 	return (philos);
 }
 
+void	monitor_action(t_philo **philos, t_units *units, size_t i, size_t *e)
+{
+	if (get_time(&philos[i]->start_time, units->start_lock) != 0)
+		philos[i]->dur = get_now()
+			- get_time(&philos[i]->start_time, units->start_lock);
+	if (get_size(&philos[i]->cnt, units->cnt_lock) >= \
+		units->must_eat && philos[i]->checked == 0)
+	{
+		philos[i]->checked = 1;
+		(*e)++;
+	}
+}
+
+void	philos_monitor(t_philo **philos, t_units *units)
+{
+	size_t	i;
+	size_t	enough;
+
+	i = 0;
+	enough = 0;
+	set_time(&units->init_time, get_now(), units->print_lock);
+	pthread_mutex_unlock(units->activate_lock);
+	while (philos[i]->dur < units->time_to_die)
+	{
+		monitor_action(philos, units, i, &enough);
+		if (enough == units->size)
+			break ;
+		if (++i == units->size)
+			i = 0;
+		usleep(10);
+	}
+	not_activate(units);
+	usleep(1000);
+	if (philos[i]->dur >= units->time_to_die)
+		printf("%ld %ld died\n", \
+			(get_now() - get_time(&units->init_time, \
+			units->print_lock)) / 1000, philos[i]->num);
+}
+
 int	main(int argc, char *argv[])
 {
 	size_t		i;
-	//pthread_t	monitor;
 	t_units		*units;
 	t_philo		**philos;
 
-	if (!(argc == 5 || argc == 6))
-		return (0);
-	i = 0;
-	units = get_units(argc, argv);
+	if (!(argc == 5 || argc == 6) || ft_atoi(argv[1]) < 1 || \
+		ft_atoi(argv[1]) > 10000 || (argc == 6 && (ft_atoi(argv[5]) < 1)))
+		return (1);
+	units = (t_units *)malloc(sizeof(t_units));
+	units = get_units(argc, argv, units);
 	philos = (t_philo **)malloc(sizeof(t_philo *) * (units->size));
 	philos = init_philos(philos, units);
-	//pthread_join(monitor, NULL);
+	pthread_mutex_lock(units->activate_lock);
 	i = 0;
 	while (i < units->size)
 	{
 		pthread_create(&philos[i]->thr, NULL, thr_start, philos[i]);
 		i++;
 	}
+	usleep(1000);
+	philos_monitor(philos, units);
 	i = 0;
 	while (i < units->size)
-	{
-		pthread_join(philos[i]->thr, NULL);
-		i++;
-	}
-	//pthread_create(&monitor, NULL, &monitoring, philos);
+		pthread_join(philos[i++]->thr, NULL);
+	memory_clean(philos, units);
 }
